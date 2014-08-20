@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SENTRY_CONF_FILE=/conf/sentry.conf.py
+
+if [ "$1" = "start" ]; then
+
+sentry --config=$SENTRY_CONF_FILE upgrade --noinput
+
+/usr/bin/expect << EOF
+
+spawn sentry --config=$SENTRY_CONF_FILE createsuperuser --username=${SENTRY_ADMIN_USERNAME:-admin} --email=${SENTRY_ADMIN_EMAIL:-"root@localhost"}
+
+expect "Password: "
+send "${SENTRY_ADMIN_PASSWORD:-admin}\r"
+expect "Password (again): "
+send "${SENTRY_ADMIN_PASSWORD:-admin}\r"
+expect "Superuser created successfully."
+EOF
+
+fi
+
+sentry --config=$SENTRY_CONF_FILE $@
