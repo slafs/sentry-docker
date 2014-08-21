@@ -10,14 +10,12 @@ RUN mkdir -p /conf
 RUN mkdir -p /data
 RUN mkdir -p /wheels
 
-ADD special_requirements.txt /conf/
+ADD requirements.txt /conf/
 
-RUN pip wheel --wheel-dir=/wheels -r /conf/special_requirements.txt
-RUN pip wheel --wheel-dir=/wheels sentry[postgres]
+RUN pip wheel --wheel-dir=/wheels -r /conf/requirements.txt
 
 # the order is important because of the redis dependency (version)
-RUN pip install --find-links=/wheels -r /conf/special_requirements.txt
-RUN pip install --find-links=/wheels sentry[postgres]
+RUN pip install --find-links=/wheels -r /conf/requirements.txt
 
 EXPOSE 9000
 

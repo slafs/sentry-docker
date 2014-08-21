@@ -6,3 +6,6 @@ dj-database-url==0.3.0
 # cache with redis
 django-redis==3.7.1
 hiredis==0.1.4
+
+# sentry
+sentry[postgres]==6.4.4
