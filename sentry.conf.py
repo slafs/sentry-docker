@@ -23,7 +23,7 @@ if 'postgres' in DATABASES['default']['ENGINE']:
         'autocommit': True,
     }
 
-CACHES = {'default': django_cache_url.config(default='hiredis://{0}:{1}/2/'.format(REDIS_HOST, REDIS_PORT))}
+CACHES = {'default': django_cache_url.config() }
 
 ###########
 # Queue ##
@@ -51,15 +51,24 @@ BROKER_URL = config('SENTRY_BROKER_URL', default=DEFAULT_BROKER_URL)
 # You'll need to install the required dependencies for Redis buffers:
 #   pip install redis hiredis nydus
 #
-SENTRY_BUFFER = 'sentry.buffer.redis.RedisBuffer'
-SENTRY_REDIS_OPTIONS = {
-    'hosts': {
-        0: {
-            'host': REDIS_HOST,
-            'port': REDIS_PORT,
-        }
+
+SENTRY_USE_REDIS_BUFFERS = config('SENTRY_USE_REDIS_BUFFERS', default=False, cast=bool)
+
+redis_buffers_cast = lambda x: list(r.split(':') for r in x.split(','))
+
+SENTRY_REDIS_BUFFERS = config('SENTRY_REDIS_BUFFERS', default='{0}:{1}'.format(REDIS_HOST, REDIS_PORT), cast=redis_buffers_cast)
+
+if SENTRY_USE_REDIS_BUFFERS:
+    SENTRY_BUFFER = 'sentry.buffer.redis.RedisBuffer'
+
+    _REDIS_HOSTS = {}
+
+    for r_index, r_host_pair in enumerate(SENTRY_REDIS_BUFFERS):
+        _REDIS_HOSTS[r_index] = {'host': r_host_pair[0], 'port': int(r_host_pair[1])}
+
+    SENTRY_REDIS_OPTIONS = {
+        'hosts': _REDIS_HOSTS
     }
-}
 
 ################
 # Web Server ##

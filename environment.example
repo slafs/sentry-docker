@@ -1,11 +1,48 @@
-SENTRY_URL_PREFIX=http://sentry.mydomain.com
-SECRET_KEY=setthistosomethingrandom
+### required settings
 
+SENTRY_URL_PREFIX=
+SECRET_KEY=
 
 ### other settings
 
 ## celery
 #CELERY_ALWAYS_EAGER=False
+#SENTRY_BROKER_URL=redis://redis:6379/1
+
+## postgres DB
+#DATABASE_URL=postgres://postgres:@postgres/postgres
+
+## cache
+#CACHE_URL=hiredis://redis:6379/2/
+
+## redis buffers
+#SENTRY_USE_REDIS_BUFFERS=True
+#SENTRY_REDIS_BUFFERS=redis1:6379,redis2:6379
+
+## initial superuser
+#SENTRY_ADMIN_USERNAME=bob
+#SENTRY_ADMIN_PASSWORD=mysecretpass
+#SENTRY_ADMIN_EMAIL=bob@foo.com
 
 ## email settings
-#SENTRY_EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+#SENTRY_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+#SENTRY_EMAIL_HOST=localhost
+#SENTRY_EMAIL_HOST_PASSWORD=''
+#SENTRY_EMAIL_HOST_USER=''
+#SENTRY_EMAIL_PORT=25
+#SENTRY_EMAIL_USE_TLS=False
+#SENTRY_SERVER_EMAIL=root@localhost
+
+## social auth
+#TWITTER_CONSUMER_KEY=""
+#TWITTER_CONSUMER_SECRET=""
+#FACEBOOK_APP_ID=""
+#FACEBOOK_API_SECRET=""
+#GOOGLE_OAUTH2_CLIENT_ID=""
+#GOOGLE_OAUTH2_CLIENT_SECRET=""
+#GITHUB_APP_ID=""
+#GITHUB_API_SECRET=""
+#TRELLO_API_KEY=""
+#TRELLO_API_SECRET=""
+#BITBUCKET_CONSUMER_KEY=""
+#BITBUCKET_CONSUMER_SECRET=""
