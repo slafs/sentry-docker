@@ -7,8 +7,11 @@ This is my approach for running [Sentry](https://getsentry.com) inside [Docker](
 Almost everything here is configurable via environment variables (including DATABASES and CACHES settings).
 It can be easily configured to run with redis (cache, buffers and celery broker) and postgres database.
 
-If you like this approach please star [my Panamax template](https://github.com/slafs/panamax-contest-templates) on Github which uses this image.
-You can use this template directly from [Panamax](http://panamax.io/) after adding my repository as your template source inside Panamax config panel.
+If you like this approach please star [akira's](https://github.com/akira)
+[Panamax template](https://github.com/akira/panamax-contest-templates) on Github which uses this image.
+You can use his template directly from [Panamax](http://panamax.io/) after adding
+[panamax contest template repository](https://github.com/CenturyLinkLabs/panamax-contest-templates)
+as your template source inside Panamax config panel.
 
 ## Quickstart ##
 
