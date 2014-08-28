@@ -142,40 +142,41 @@ to ``SENTRY_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`` or somet
 Refer to [sentry documentation](http://sentry.readthedocs.org/en/latest/config/index.html)
 and [django documentation](https://docs.djangoproject.com/en/1.5/ref/settings/) for the meaning of each setting.
 
-Environment variable name   | Django/Sentry setting       | Type | Default value                                         | Description
-----------------------------|-----------------------------|------|-------------------------------------------------------|------------------------------------------------------------------------
-SECRET_KEY                  | SECRET_KEY                  |      | REQUIRED!                                             | set this to something random
-SENTRY_URL_PREFIX           | SENTRY_URL_PREFIX           |      | REQUIRED!                                             | no trailing slash!
-DATABASE_URL                | DATABASES                   |      | sqlite:////data/sentry.db                             |
-CACHE_URL                   | CACHES                      |      | locmem://                                             |
-CELERY_ALWAYS_EAGER         | CELERY_ALWAYS_EAGER         | bool | True                                                  |
-SENTRY_BROKER_URL           | BROKER_URL                  |      | ``redis://<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>/1`` |
-SENTRY_REDIS_HOST           |                             |      | redis                                                 |
-SENTRY_REDIS_PORT           |                             | int  | 6379                                                  |
-SENTRY_WEB_HOST             | SENTRY_WEB_HOST             |      | 0.0.0.0                                               |
-SENTRY_WEB_PORT             | SENTRY_WEB_PORT             | int  | 9000                                                  |
-SENTRY_WORKERS              | SENTRY_WORKERS*             | int  | 3                                                     | the number of gunicorn workers
-SENTRY_USE_REDIS_BUFFER     |                             | bool | False                                                 |
-SENTRY_REDIS_BUFFERS        |                             | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
-SENTRY_EMAIL_BACKEND        | EMAIL_BACKEND               |      | django.core.mail.backends.console.EmailBackend        |
-SENTRY_EMAIL_HOST           | EMAIL_HOST                  |      | localhost                                             |
-SENTRY_EMAIL_HOST_PASSWORD  | EMAIL_HOST_PASSWORD         |      | ''                                                    |
-SENTRY_EMAIL_HOST_USER      | EMAIL_HOST_USER             |      | ''                                                    |
-SENTRY_EMAIL_PORT           | EMAIL_PORT                  | int  | 25                                                    |
-SENTRY_EMAIL_USE_TLS        | EMAIL_USE_TLS               | bool | False                                                 |
-SENTRY_SERVER_EMAIL         | SERVER_EMAIL                |      | root@localhost                                        |
-SENTRY_ADMIN_USERNAME       |                             |      | admin                                                 |
-SENTRY_ADMIN_PASSWORD       |                             |      | admin                                                 |
-SENTRY_ADMIN_EMAIL          |                             |      | root@localhost                                        |
-TWITTER_CONSUMER_KEY        | TWITTER_CONSUMER_KEY        |      | ''                                                    |
-TWITTER_CONSUMER_SECRET     | TWITTER_CONSUMER_SECRET     |      | ''                                                    |
-FACEBOOK_APP_ID             | FACEBOOK_APP_ID             |      | ''                                                    |
-FACEBOOK_API_SECRET         | FACEBOOK_API_SECRET         |      | ''                                                    |
-GOOGLE_OAUTH2_CLIENT_ID     | GOOGLE_OAUTH2_CLIENT_ID     |      | ''                                                    |
-GOOGLE_OAUTH2_CLIENT_SECRET | GOOGLE_OAUTH2_CLIENT_SECRET |      | ''                                                    |
-GITHUB_APP_ID               | GITHUB_APP_ID               |      | ''                                                    |
-GITHUB_API_SECRET           | GITHUB_API_SECRET           |      | ''                                                    |
-TRELLO_API_KEY              | TRELLO_API_KEY              |      | ''                                                    |
-TRELLO_API_SECRET           | TRELLO_API_SECRET           |      | ''                                                    |
-BITBUCKET_CONSUMER_KEY      | BITBUCKET_CONSUMER_KEY      |      | ''                                                    |
-BITBUCKET_CONSUMER_SECRET   | BITBUCKET_CONSUMER_SECRET   |      | ''                                                    |
+Environment variable name   | Django/Sentry setting          | Type | Default value                                         | Description
+----------------------------|--------------------------------|------|-------------------------------------------------------|------------------------------------------------------------------------
+SECRET_KEY                  | SECRET_KEY                     |      | REQUIRED!                                             | set this to something random
+SENTRY_URL_PREFIX           | SENTRY_URL_PREFIX              |      | REQUIRED!                                             | no trailing slash!
+DATABASE_URL                | DATABASES                      |      | sqlite:////data/sentry.db                             |
+CACHE_URL                   | CACHES                         |      | locmem://                                             |
+CELERY_ALWAYS_EAGER         | CELERY_ALWAYS_EAGER            | bool | True                                                  |
+SENTRY_BROKER_URL           | BROKER_URL                     |      | ``redis://<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>/1`` |
+SENTRY_REDIS_HOST           |                                |      | redis                                                 |
+SENTRY_REDIS_PORT           |                                | int  | 6379                                                  |
+SENTRY_WEB_HOST             | SENTRY_WEB_HOST                |      | 0.0.0.0                                               |
+SENTRY_WEB_PORT             | SENTRY_WEB_PORT                | int  | 9000                                                  |
+SENTRY_WORKERS              | SENTRY_WEB_OPTIONS['workers']  | int  | 3                                                     | the number of gunicorn workers
+SENTRY_USE_REDIS_BUFFER     |                                | bool | False                                                 |
+SENTRY_REDIS_BUFFERS        | SENTRY_REDIS_OPTIONS['hosts']* | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
+SENTRY_EMAIL_BACKEND        | EMAIL_BACKEND                  |      | django.core.mail.backends.console.EmailBackend        |
+SENTRY_EMAIL_HOST           | EMAIL_HOST                     |      | localhost                                             |
+SENTRY_EMAIL_HOST_PASSWORD  | EMAIL_HOST_PASSWORD            |      | ''                                                    |
+SENTRY_EMAIL_HOST_USER      | EMAIL_HOST_USER                |      | ''                                                    |
+SENTRY_EMAIL_PORT           | EMAIL_PORT                     | int  | 25                                                    |
+SENTRY_EMAIL_USE_TLS        | EMAIL_USE_TLS                  | bool | False                                                 |
+SENTRY_SERVER_EMAIL         | SERVER_EMAIL                   |      | root@localhost                                        |
+SENTRY_ADMIN_USERNAME       |                                |      | admin                                                 | username for Sentry's superuser
+SENTRY_ADMIN_PASSWORD       |                                |      | admin                                                 | password for Sentry's superuser
+SENTRY_ADMIN_EMAIL          |                                |      | root@localhost                                        | email address for Sentry's superuser
+SENTRY_DATA_DIR             |                                |      | ``/data``                                             | custom location for logs and sqlite database
+TWITTER_CONSUMER_KEY        | TWITTER_CONSUMER_KEY           |      | ''                                                    |
+TWITTER_CONSUMER_SECRET     | TWITTER_CONSUMER_SECRET        |      | ''                                                    |
+FACEBOOK_APP_ID             | FACEBOOK_APP_ID                |      | ''                                                    |
+FACEBOOK_API_SECRET         | FACEBOOK_API_SECRET            |      | ''                                                    |
+GOOGLE_OAUTH2_CLIENT_ID     | GOOGLE_OAUTH2_CLIENT_ID        |      | ''                                                    |
+GOOGLE_OAUTH2_CLIENT_SECRET | GOOGLE_OAUTH2_CLIENT_SECRET    |      | ''                                                    |
+GITHUB_APP_ID               | GITHUB_APP_ID                  |      | ''                                                    |
+GITHUB_API_SECRET           | GITHUB_API_SECRET              |      | ''                                                    |
+TRELLO_API_KEY              | TRELLO_API_KEY                 |      | ''                                                    |
+TRELLO_API_SECRET           | TRELLO_API_SECRET              |      | ''                                                    |
+BITBUCKET_CONSUMER_KEY      | BITBUCKET_CONSUMER_KEY         |      | ''                                                    |
+BITBUCKET_CONSUMER_SECRET   | BITBUCKET_CONSUMER_SECRET      |      | ''                                                    |

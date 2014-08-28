@@ -8,7 +8,7 @@ import dj_database_url
 import django_cache_url
 
 CONF_ROOT = os.path.dirname(__file__)
-DATA_DIR = '/data'
+DATA_DIR = config('SENTRY_DATA_DIR', default='/data')
 DEFAULT_SQLITE_DB_PATH = os.path.join(DATA_DIR, 'sentry.db')
 
 REDIS_HOST = config('SENTRY_REDIS_HOST', default='redis')
