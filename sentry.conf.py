@@ -146,3 +146,41 @@ BITBUCKET_CONSUMER_SECRET = config('BITBUCKET_CONSUMER_SECRET', default='')
 # custom settings
 ALLOWED_HOSTS = ['*']
 LOGGING['disable_existing_loggers'] = False
+
+SENTRY_USE_LDAP = config('SENTRY_USE_LDAP', default=False, cast=bool)
+
+if SENTRY_USE_LDAP:
+    import ldap
+    from django_auth_ldap.config import LDAPSearch, GroupOfUniqueNamesType
+
+    AUTH_LDAP_SERVER_URI = config('LDAP_SERVER', default='ldap://localhost')
+
+    AUTH_LDAP_BIND_DN = config('LDAP_BIND_DN', default='')
+    AUTH_LDAP_BIND_PASSWORD = config('LDAP_BIND_PASSWORD', default='')
+    AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+        config('LDAP_BASE_DN'),
+        ldap.SCOPE_SUBTREE,
+        config('LDAP_GROUP_FILTER', '(objectClass=groupOfUniqueNames)')
+    )
+
+    if config('LDAP_GROUP_TYPE', None) == 'groupOfUniqueNames':
+        AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()
+
+    AUTH_LDAP_REQUIRE_GROUP = config('LDAP_REQUIRE_GROUP', None)
+    AUTH_LDAP_USER_ATTR_MAP = {
+        'first_name': config('LDAP_MAP_FIRST_NAME', 'givenName'),
+        'last_name': config('LDAP_MAP_LAST_NAME', 'sn'),
+        'email': config('LDAP_MAP_MAIL', 'mail')
+    }
+
+    AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+        'is_active': config('LDAP_GROUP_ACTIVE', ''),
+        'is_staff': config('LDAP_GROUP_STAFF', ''),
+        'is_superuser': config('LDAP_GROUP_SUPERUSER', '')
+    }
+
+    AUTH_LDAP_FIND_GROUP_PERMS = config('LDAP_FIND_GROUP_PERMS', default=False, cast=bool)
+
+    AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
+        'django_auth_ldap.backend.LDAPBackend',
+    )
