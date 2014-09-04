@@ -4,7 +4,7 @@ MAINTAINER Sławek Ehlert <slafs@op.pl>
 
 RUN pip install -U wheel pip setuptools
 
-RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q libxslt1-dev libxml2-dev libpq-dev expect
+RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q libxslt1-dev libxml2-dev libpq-dev expect libldap2-dev libsasl2-dev libssl-dev
 
 RUN mkdir -p /conf
 RUN mkdir -p /data
