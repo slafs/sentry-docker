@@ -159,8 +159,15 @@ if SENTRY_USE_LDAP:
 
     AUTH_LDAP_BIND_DN = config('LDAP_BIND_DN', default='')
     AUTH_LDAP_BIND_PASSWORD = config('LDAP_BIND_PASSWORD', default='')
+
+    AUTH_LDAP_USER_SEARCH = LDAPSearch(
+        config('LDAP_USER_DN'),
+        ldap.SCOPE_SUBTREE,
+        config('LDAP_GROUP_FILTER', '(&(objectClass=inetOrgPerson)(cn=%(user)s))')
+    )
+
     AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-        config('LDAP_BASE_DN'),
+        config('LDAP_GROUP_DN'),
         ldap.SCOPE_SUBTREE,
         config('LDAP_GROUP_FILTER', '(objectClass=groupOfUniqueNames)')
     )
