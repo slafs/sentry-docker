@@ -1,6 +1,4 @@
 # env config
-Django==1.6.7
-South==1.0
 python-decouple==2.3
 django-cache-url==0.8.0
 dj-database-url==0.3.0

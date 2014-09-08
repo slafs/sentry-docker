@@ -114,7 +114,7 @@ SERVER_EMAIL = config('SENTRY_SERVER_EMAIL', default='root@localhost')
 # etc. ##
 ###########
 
-SENTRY_ALLOW_REGISTRATION = config('SENTRY_ALLOW_REGISTRATION', default=True, cast=bool)
+SENTRY_ALLOW_REGISTRATION = config('SENTRY_ALLOW_REGISTRATION', default=False, cast=bool)
 
 # If this file ever becomes compromised, it's important to regenerate your SECRET_KEY
 # Changing this value will result in all current sessions being invalidated
@@ -149,6 +149,10 @@ BITBUCKET_CONSUMER_SECRET = config('BITBUCKET_CONSUMER_SECRET', default='')
 ALLOWED_HOSTS = ['*']
 LOGGING['disable_existing_loggers'] = False
 
+####################
+# LDAP settings ##
+####################
+
 SENTRY_USE_LDAP = config('SENTRY_USE_LDAP', default=False, cast=bool)
 
 if SENTRY_USE_LDAP:
@@ -163,33 +167,39 @@ if SENTRY_USE_LDAP:
     AUTH_LDAP_USER_SEARCH = LDAPSearch(
         config('LDAP_USER_DN'),
         ldap.SCOPE_SUBTREE,
-        config('LDAP_GROUP_FILTER', '(&(objectClass=inetOrgPerson)(cn=%(user)s))')
+        config('LDAP_USER_FILTER', default='(&(objectClass=inetOrgPerson)(cn=%(user)s))')
     )
 
     AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
         config('LDAP_GROUP_DN'),
         ldap.SCOPE_SUBTREE,
-        config('LDAP_GROUP_FILTER', '(objectClass=groupOfUniqueNames)')
+        config('LDAP_GROUP_FILTER', default='(objectClass=groupOfUniqueNames)')
     )
 
-    if config('LDAP_GROUP_TYPE', None) == 'groupOfUniqueNames':
+    if config('LDAP_GROUP_TYPE', default=None) == 'groupOfUniqueNames':
         AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()
 
-    AUTH_LDAP_REQUIRE_GROUP = config('LDAP_REQUIRE_GROUP', None)
+    AUTH_LDAP_REQUIRE_GROUP = config('LDAP_REQUIRE_GROUP', default=None)
     AUTH_LDAP_USER_ATTR_MAP = {
-        'first_name': config('LDAP_MAP_FIRST_NAME', 'givenName'),
-        'last_name': config('LDAP_MAP_LAST_NAME', 'sn'),
-        'email': config('LDAP_MAP_MAIL', 'mail')
+        'first_name': config('LDAP_MAP_FIRST_NAME', default='givenName'),
+        'last_name': config('LDAP_MAP_LAST_NAME', default='sn'),
+        'email': config('LDAP_MAP_MAIL', default='mail')
     }
 
     AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-        'is_active': config('LDAP_GROUP_ACTIVE', ''),
-        'is_staff': config('LDAP_GROUP_STAFF', ''),
-        'is_superuser': config('LDAP_GROUP_SUPERUSER', '')
+        'is_active': config('LDAP_GROUP_ACTIVE', default=''),
+        'is_staff': config('LDAP_GROUP_STAFF', default=''),
+        'is_superuser': config('LDAP_GROUP_SUPERUSER', default='')
     }
 
     AUTH_LDAP_FIND_GROUP_PERMS = config('LDAP_FIND_GROUP_PERMS', default=False, cast=bool)
 
+    # Cache group memberships for an hour to minimize LDAP traffic
+    AUTH_LDAP_CACHE_GROUPS = config('LDAP_CACHE_GROUPS', default=True, cast=bool)
+    AUTH_LDAP_GROUP_CACHE_TIMEOUT = config('LDAP_GROUP_CACHE_TIMEOUT', default=3600, cast=int)
+
     AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
         'django_auth_ldap.backend.LDAPBackend',
     )
+
+    # TODO: control logging ('django_auth_ldap')

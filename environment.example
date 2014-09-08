@@ -4,7 +4,8 @@ SENTRY_URL_PREFIX=
 SECRET_KEY=
 
 ### other settings
-
+### (https://docs.djangoproject.com/en/1.5/ref/settings/)
+### (http://sentry.readthedocs.org/en/latest/config/index.html)
 ## celery
 #CELERY_ALWAYS_EAGER=False
 #SENTRY_BROKER_URL=redis://redis:6379/1
@@ -47,5 +48,29 @@ SECRET_KEY=
 #BITBUCKET_CONSUMER_KEY=""
 #BITBUCKET_CONSUMER_SECRET=""
 
+
+## LDAP (https://pythonhosted.org/django-auth-ldap/reference.html)
+#SENTRY_USE_LDAP=True
+#LDAP_SERVER=ldap://localhost
+#LDAP_BIND_DN=cn=admin,dc=mycorp,dc=com
+#LDAP_BIND_PASSWORD=ldapadminpassword
+#LDAP_USER_DN=REQUIRED!
+#LDAP_USER_FILTER="(&(objectClass=inetOrgPerson)(cn=%(user)s))"
+#LDAP_GROUP_DN=REQUIRED!
+#LDAP_GROUP_FILTER="(objectClass=groupOfUniqueNames)"
+#LDAP_REQUIRE_GROUP=
+#LDAP_GROUP_TYPE='groupOfUniqueNames'
+#LDAP_MAP_FIRST_NAME=givenName
+#LDAP_MAP_LAST_NAME=sn
+#LDAP_MAP_MAIL=mail
+#LDAP_GROUP_ACTIVE=''
+#LDAP_GROUP_STAFF=''
+#LDAP_GROUP_SUPERUSER=''
+#LDAP_FIND_GROUP_PERMS=False
+#LDAP_CACHE_GROUPS=True
+#LDAP_GROUP_CACHE_TIMEOUT=3600
+
+
 # others
 #SENTRY_DATA_DIR=/data
+#SENTRY_ALLOW_REGISTRATION=True
