@@ -190,12 +190,13 @@ SENTRY_USE_LDAP             |                                               | bo
 LDAP_SERVER                 | AUTH_LDAP_SERVER_URI                          |      | ``ldap://localhost``                                  |
 LDAP_BIND_DN                | AUTH_LDAP_BIND_DN                             |      | ''                                                    |
 LDAP_BIND_PASSWORD          | AUTH_LDAP_BIND_PASSWORD                       |      | ''                                                    |
-LDAP_USER_DN                | AUTH_LDAP_USER_SEARCH*                        |      | **REQUIRED!** if you want to use LDAP auth            |
-LDAP_USER_FILTER            | AUTH_LDAP_USER_SEARCH*                        |      | ``(&(objectClass=inetOrgPerson)(cn=%(user)s))``       |
-LDAP_GROUP_DN               | AUTH_LDAP_GROUP_SEARCH*                       |      | **REQUIRED!** if you want to use LDAP auth            |
-LDAP_GROUP_FILTER           | AUTH_LDAP_GROUP_SEARCH*                       |      | ``(objectClass=groupOfUniqueNames)``                  |
-LDAP_GROUP_TYPE             | AUTH_LDAP_GROUP_TYPE*                         |      | None                                                  | if set to 'groupOfUniqueNames' then ``AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()``
+LDAP_USER_DN                | AUTH_LDAP_USER_SEARCH*                        |      | **REQUIRED!** if you want to use LDAP auth            | first argument of LDAPSearch (base_dn) when searching for users
+LDAP_USER_FILTER            | AUTH_LDAP_USER_SEARCH*                        |      | ``(&(objectClass=inetOrgPerson)(cn=%(user)s))``       | third argument of LDAPSearch (filterstr) when searching for users
+LDAP_GROUP_DN               | AUTH_LDAP_GROUP_SEARCH*                       |      | ''                                                    | first argument of LDAPSearch (base_dn) when searching for groups
+LDAP_GROUP_FILTER           | AUTH_LDAP_GROUP_SEARCH*                       |      | ``(objectClass=groupOfUniqueNames)``                  | third argument of LDAPSearch (filterstr) when searching for groups
+LDAP_GROUP_TYPE             | AUTH_LDAP_GROUP_TYPE*                         |      | ''                                                    | if set to 'groupOfUniqueNames' then ``AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()``
 LDAP_REQUIRE_GROUP          | AUTH_LDAP_REQUIRE_GROUP                       |      | None                                                  |
+LDAP_DENY_GROUP             | AUTH_LDAP_DENY_GROUP                          |      | None                                                  |
 LDAP_MAP_FIRST_NAME         | AUTH_LDAP_USER_ATTR_MAP['first_name']         |      | ``givenName``                                         |
 LDAP_MAP_LAST_NAME          | AUTH_LDAP_USER_ATTR_MAP['last_name']          |      | ``sn``                                                |
 LDAP_MAP_MAIL               | AUTH_LDAP_USER_ATTR_MAP['email']              |      | ``mail``                                              |
@@ -205,3 +206,4 @@ LDAP_GROUP_SUPERUSER        | AUTH_LDAP_USER_FLAGS_BY_GROUP['is_superuser'] |   
 LDAP_FIND_GROUP_PERMS       | AUTH_LDAP_FIND_GROUP_PERMS                    | bool | False                                                 |
 LDAP_CACHE_GROUPS           | AUTH_LDAP_CACHE_GROUPS                        | bool | True                                                  |
 LDAP_GROUP_CACHE_TIMEOUT    | AUTH_LDAP_GROUP_CACHE_TIMEOUT                 | int  | 3600                                                  |
+LDAP_LOGLEVEL               |                                               |      | ``DEBUG``                                             | django_auth_ldap logger level (other values: NOTSET (to disable), INFO, WARNING, ERROR or CRITICAL)

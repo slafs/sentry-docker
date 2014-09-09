@@ -52,20 +52,21 @@ SECRET_KEY=
 ## LDAP (https://pythonhosted.org/django-auth-ldap/reference.html)
 #SENTRY_USE_LDAP=True
 #LDAP_SERVER=ldap://localhost
-#LDAP_BIND_DN=cn=admin,dc=mycorp,dc=com
+#LDAP_BIND_DN=cn=admin,dc=example,dc=com
 #LDAP_BIND_PASSWORD=ldapadminpassword
-#LDAP_USER_DN=REQUIRED!
-#LDAP_USER_FILTER="(&(objectClass=inetOrgPerson)(cn=%(user)s))"
-#LDAP_GROUP_DN=REQUIRED!
-#LDAP_GROUP_FILTER="(objectClass=groupOfUniqueNames)"
-#LDAP_REQUIRE_GROUP=
+#LDAP_USER_DN=REQUIRED! e.g. ou=users,dc=example,dc=com
+#LDAP_USER_FILTER=(&(objectClass=inetOrgPerson)(cn=%(user)s))
+#LDAP_GROUP_DN=ou=django,ou=groups,dc=example,dc=com
+#LDAP_GROUP_FILTER=(objectClass=groupOfUniqueNames)
+#LDAP_REQUIRE_GROUP=cn=enabled,ou=django,ou=groups,dc=example,dc=com
+#LDAP_DENY_GROUP=cn=disabled,ou=django,ou=groups,dc=example,dc=com
 #LDAP_GROUP_TYPE='groupOfUniqueNames'
 #LDAP_MAP_FIRST_NAME=givenName
 #LDAP_MAP_LAST_NAME=sn
 #LDAP_MAP_MAIL=mail
-#LDAP_GROUP_ACTIVE=''
-#LDAP_GROUP_STAFF=''
-#LDAP_GROUP_SUPERUSER=''
+#LDAP_GROUP_ACTIVE=cn=active,ou=django,ou=groups,dc=example,dc=com
+#LDAP_GROUP_STAFF=cn=staff,ou=django,ou=groups,dc=example,dc=com
+#LDAP_GROUP_SUPERUSER=cn=superuser,ou=django,ou=groups,dc=example,dc=com
 #LDAP_FIND_GROUP_PERMS=False
 #LDAP_CACHE_GROUPS=True
 #LDAP_GROUP_CACHE_TIMEOUT=3600

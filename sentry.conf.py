@@ -171,26 +171,31 @@ if SENTRY_USE_LDAP:
     )
 
     AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-        config('LDAP_GROUP_DN'),
+        config('LDAP_GROUP_DN', default=''),
         ldap.SCOPE_SUBTREE,
         config('LDAP_GROUP_FILTER', default='(objectClass=groupOfUniqueNames)')
     )
 
-    if config('LDAP_GROUP_TYPE', default=None) == 'groupOfUniqueNames':
+    if config('LDAP_GROUP_TYPE', default='') == 'groupOfUniqueNames':
         AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()
 
     AUTH_LDAP_REQUIRE_GROUP = config('LDAP_REQUIRE_GROUP', default=None)
+    AUTH_LDAP_DENY_GROUP = config('LDAP_DENY_GROUP', default=None)
+
     AUTH_LDAP_USER_ATTR_MAP = {
         'first_name': config('LDAP_MAP_FIRST_NAME', default='givenName'),
         'last_name': config('LDAP_MAP_LAST_NAME', default='sn'),
         'email': config('LDAP_MAP_MAIL', default='mail')
     }
 
-    AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-        'is_active': config('LDAP_GROUP_ACTIVE', default=''),
-        'is_staff': config('LDAP_GROUP_STAFF', default=''),
-        'is_superuser': config('LDAP_GROUP_SUPERUSER', default='')
-    }
+    ldap_is_active    = config('LDAP_GROUP_ACTIVE', default='')
+    ldap_is_superuser = config('LDAP_GROUP_SUPERUSER', default='')
+
+    if ldap_is_active or ldap_is_superuser:
+        AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+            'is_active': ldap_is_active,
+            'is_superuser': ldap_is_superuser,
+        }
 
     AUTH_LDAP_FIND_GROUP_PERMS = config('LDAP_FIND_GROUP_PERMS', default=False, cast=bool)
 
@@ -202,4 +207,9 @@ if SENTRY_USE_LDAP:
         'django_auth_ldap.backend.LDAPBackend',
     )
 
-    # TODO: control logging ('django_auth_ldap')
+    # setup logging for django_auth_ldap
+    import logging
+    logger = logging.getLogger('django_auth_ldap')
+    logger.addHandler(logging.StreamHandler())
+    ldap_loglevel = getattr(logging, config('LDAP_LOGLEVEL', default='DEBUG'))
+    logger.setLevel(ldap_loglevel)
