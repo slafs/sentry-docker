@@ -5,13 +5,7 @@ Sentry in Docker
 
 This is my approach for running [Sentry](https://getsentry.com) inside [Docker](https://docker.com/).
 Almost everything here is configurable via environment variables (including DATABASES and CACHES settings).
-It can be easily configured to run with redis (cache, buffers and celery broker) and postgres database.
-
-If you like this approach please star [akira's](https://github.com/akira)
-[Panamax template](https://github.com/akira/panamax-contest-templates) on Github which uses this image.
-You can use his template directly from [Panamax](http://panamax.io/) after adding
-[panamax contest template repository](https://github.com/CenturyLinkLabs/panamax-contest-templates)
-as your template source inside Panamax config panel.
+It can be easily configured to run with redis (cache, buffers and celery broker), postgres database and LDAP authentication backend.
 
 ## Quickstart ##
 
@@ -139,6 +133,13 @@ You can configure all [email settings](http://sentry.readthedocs.org/en/latest/q
 by environment variables with ``SENTRY_`` prefix.
 You have to also change an email backend and set it
 to ``SENTRY_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`` or something similar.
+
+###LDAP
+With this image You should be able to easily configure LDAP authentication for your Sentry instance.
+To enable it add ``SENTRY_USE_LDAP=True`` to your ``environment`` file.
+Then set the needed options by adding env variables with ``LDAP_``
+prefix (see the table below). LDAP authentication backend is provided by
+[django-auth-ldap](https://pythonhosted.org/django-auth-ldap/).
 
 ## Available environment variables
 
