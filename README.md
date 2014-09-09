@@ -49,7 +49,7 @@ docker run [docker options] slafs/sentry --help
 refers to running:
 
 ```
-sentry --config=/data/sentry.conf.py --help
+sentry --config=/conf/sentry.conf.py --help
 ```
 
 inside the container.
