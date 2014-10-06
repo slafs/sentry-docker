@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SENTRY_CONF_FILE=/conf/sentry.conf.py
+SENTRY_CONF_FILE=${SENTRY_CONF_FILE:-/conf/sentry.conf.py}
 
 # if starting the web worker then try to initialize DB and superuser
 if [ "$1" = "start" ]; then

@@ -28,7 +28,7 @@ for figfile in $(find $DIR_TO_TEST -name fig.yml); do
         echo -e "\033[31mFAILURE $figfile\033[0m"
     fi
 
-    $FIG stop test
+    $FIG stop
 done
 
 if [ "$last_errorcode" == "0" ]; then
