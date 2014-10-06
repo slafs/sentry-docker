@@ -21,6 +21,18 @@ is mapped to your docker host) and login with default credentials
 
 Your sqlite database file and gunicorn logs are available in ``/tmp/sentry`` directory.
 
+## Contributing ##
+
+Try not to fork this repo just to create your own Docker image with some
+minor tweak. Please open an [issue on GitHub](https://github.com/slafs/sentry-docker/issues)
+and maybe we can include your use case directly within this image :).
+
+You can even write a test case for your feature ;). See
+[CONTRIBUTING.md](https://github.com/slafs/sentry-docker/blob/master/CONTRIBUTING.md).
+
+Also feel free to give [feedback and comments](https://github.com/slafs/sentry-docker/issues)
+about this image in general.
+
 ## Advanced usage ##
 
 Copy the file with environment variables ``environment.example`` e.g ``cp environment.example environment``

@@ -1,0 +1,37 @@
+redis:
+    image: redis
+
+db:
+    image: postgres
+
+sentrycelery: &DEFAULT
+    build: .  # this will use a main Dockerfile in this repo
+    command: "celery worker -B -l INFO"
+    links:
+        - redis:redis
+        - db:postgresdb
+    volumes:
+        - /tmp/sentry:/data
+    environment:
+        - SECRET_KEY=123123123
+        - SENTRY_URL_PREFIX=http://sentry.slafs.com
+        - DATABASE_URL=postgres://postgres:@postgresdb/postgres
+        - CELERY_ALWAYS_EAGER=False
+        - CACHE_URL=hiredis://redis:6379/2/
+
+sentryweb:
+    <<: *DEFAULT  # "inherit" from the configuration above
+    command: "start"
+    ports:
+        - "80:9000"
+
+# this container will run during testing
+# so we have to link all the other ones
+# and then they can be build/run automatically
+test:
+    build: tests/simple_services
+    links:
+        - redis:redis
+        - db:postgresdb
+        - sentryweb:sentryweb
+        - sentrycelery:sentrycelery
