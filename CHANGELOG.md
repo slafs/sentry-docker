@@ -1,7 +1,8 @@
 # Changelog
 
-## XXXX-XX-XX
+## 2014-10-06
 
+- updated ``requirements.txt`` (``django-auth-ldap`` and ``hiredis``)
 - added some contribution guidelines
 
 ## 2014-09-09
