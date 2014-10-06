@@ -6,16 +6,11 @@ RUN pip install -U wheel pip setuptools
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q libxslt1-dev libxml2-dev libpq-dev expect libldap2-dev libsasl2-dev libssl-dev
 
-RUN mkdir -p /conf
-RUN mkdir -p /data
-RUN mkdir -p /wheels
+RUN mkdir -p /conf /data /wheels
 
 ADD requirements.txt /conf/
 
-RUN pip wheel --wheel-dir=/wheels -r /conf/requirements.txt
-
-# the order is important because of the redis dependency (version)
-RUN pip install --find-links=/wheels -r /conf/requirements.txt
+RUN pip wheel --wheel-dir=/wheels -r /conf/requirements.txt && pip install --find-links=/wheels -r /conf/requirements.txt
 
 EXPOSE 9000
 
