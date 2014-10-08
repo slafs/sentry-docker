@@ -1,9 +1,23 @@
 #!/bin/bash
 
-LAST_ERROR_CODE=0
+HAS_ERRORS=0
+TIMEOUT=120  # seconds
 
-nc -w 5 -vz sentryweb 9090
-RET=$?
-if [ "$RET" != "0" ]; then LAST_ERROR_CODE=$RET; fi
+echo
+echo "waiting for sentryweb:9090"
 
-exit $LAST_ERROR_CODE
+trap "exit" INT
+for i in $(seq 1 $TIMEOUT); do
+    nc -w 5 -z sentryweb 9090
+    RET=$?
+    HAS_ERRORS=$RET
+    if [ "$RET" != "0" ]; then
+        echo -n "."
+        sleep 1
+    else
+        echo "sentryweb:9090 OK"
+        break
+    fi
+done
+
+exit $HAS_ERRORS

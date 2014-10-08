@@ -2,12 +2,15 @@ sentryweb:
     build: .  # this will use a main Dockerfile in this repo
     command: "start"
     volumes:
-        - /tmp/sentry:/data
         - ./tests/custom_settings/conf:/mycustomconfdir
     environment:
         - SECRET_KEY=123123123
         - SENTRY_URL_PREFIX=http://sentry.domain.com
-        - SENTRY_CONF_FILE=/mycustomconfdir/sentry.customconf.py
+        - PYTHONPATH=/conf/
+        - SENTRY_CONF_FILE=/mycustomconfdir/sentry_customconf.py
+
+    expose:
+        - "9090"
 
 test:
     build: tests/custom_settings
