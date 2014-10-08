@@ -29,6 +29,7 @@ for figfile in $(find $DIR_TO_TEST -name fig.yml); do
     fi
 
     $FIG stop
+    $FIG rm -v --force
 done
 
 if [ "$last_errorcode" == "0" ]; then
