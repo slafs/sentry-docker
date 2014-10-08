@@ -16,7 +16,7 @@ EXPOSE 9000
 
 VOLUME ["/data"]
 
-ADD sentry.conf.py /conf/
+ADD sentry_docker_conf.py /conf/
 ADD sentry_run /usr/local/bin/
 
 ENTRYPOINT ["/usr/local/bin/sentry_run"]
