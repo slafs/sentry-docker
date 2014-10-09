@@ -220,3 +220,70 @@ LDAP_FIND_GROUP_PERMS       | AUTH_LDAP_FIND_GROUP_PERMS                    | bo
 LDAP_CACHE_GROUPS           | AUTH_LDAP_CACHE_GROUPS                        | bool | True                                                  |
 LDAP_GROUP_CACHE_TIMEOUT    | AUTH_LDAP_GROUP_CACHE_TIMEOUT                 | int  | 3600                                                  |
 LDAP_LOGLEVEL               |                                               |      | ``DEBUG``                                             | django_auth_ldap logger level (other values: NOTSET (to disable), INFO, WARNING, ERROR or CRITICAL)
+
+
+## Extending the image ##
+
+If your use case is out the scope of this generic image, you can
+extend this image to include your custom packages, configuration etc. and
+still be able to take advantage of all features here. All you need to do is create
+your own image based on this one.
+
+For example to install and use a plugin like sentry-github
+and/or change a setting that isn't managed by this image you can have a following
+config script ``my_custom_settings.py``:
+
+    # get all the configuration from the original image
+    from sentry_docker_conf import *  # noqa
+
+    # change some settings - for example the port
+    # (of course you can do this also by setting environment variable ``SENTRY_WEB_PORT``)
+    SENTRY_WEB_PORT = 5000
+
+    # configure sentry-github
+    GITHUB_APP_ID = 'GitHub Application Client ID'
+    GITHUB_API_SECRET = 'GitHub Application Client Secret'
+    GITHUB_EXTENDED_PERMISSIONS = ['repo']
+    ...
+
+and a ``Dockerfile`` similar to this:
+
+    # inherit from this image
+    FROM slafs/sentry
+
+    # who's the boss? :)
+    MAINTAINER me
+
+    # install your extra dependencies e.g. sentry-github
+    # (there are some dependency issues with redis)
+    RUN pip install -U sentry-github "redis<2.9.0"
+
+    # add your custom settings file
+    ADD my_custom_settings.py /conf/
+
+    # make sentry_docker_conf module importable from your custom script
+    ENV PYTHONPATH /conf
+
+    # use your custom settings file as a default config file for sentry to use
+    ENV SENTRY_CONF_FILE /conf/my_custom_settings.py
+
+    # expose the new port
+    EXPOSE 5000
+
+
+Build your image:
+
+    docker build -t my_custom_sentry_image .
+
+Now you can run your sentry instance just like before but with different image.
+So for example this:
+
+```
+docker run -d --name=... --volume=... -p 80:9000 -e SECRET_KEY=... -e SENTRY_URL_PREFIX=http://... slafs/sentry
+```
+
+becomes this:
+
+```
+docker run -d --name=... --volume=... -p 80:5000 -e SECRET_KEY=... -e SENTRY_URL_PREFIX=http://... my_custom_sentry_image
+```
