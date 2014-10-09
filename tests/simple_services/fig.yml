@@ -10,8 +10,6 @@ sentrycelery: &DEFAULT
     links:
         - redis:redis
         - db:postgresdb
-    volumes:
-        - /tmp/sentry:/data
     environment:
         - SECRET_KEY=123123123
         - SENTRY_URL_PREFIX=http://sentry.slafs.com
@@ -22,8 +20,6 @@ sentrycelery: &DEFAULT
 sentryweb:
     <<: *DEFAULT  # "inherit" from the configuration above
     command: "start"
-    ports:
-        - "80:9000"
 
 # this container will run during testing
 # so we have to link all the other ones

@@ -1,17 +1,41 @@
 #!/bin/bash
 
-LAST_ERROR_CODE=0
+HAS_ERRORS=0
+TIMEOUT=120  # seconds
 
-nc -w 5 -vz redis 6379
-RET=$?
-if [ "$RET" != "0" ]; then LAST_ERROR_CODE=$RET; fi
+declare -A services
+services[redis]=6379
+services[postgresdb]=5432
+services[sentryweb]=9000
 
-nc -w 5 -vz postgresdb 5432
-RET=$?
-if [ "$RET" != "0" ]; then LAST_ERROR_CODE=$RET; fi
+echo
+echo "waiting for services"
 
-nc -w 5 -vz sentryweb 9000
-RET=$?
-if [ "$RET" != "0" ]; then LAST_ERROR_CODE=$RET; fi
+trap "exit" INT
+for service in ${!services[@]}; do  # loop through all services
 
-exit $LAST_ERROR_CODE
+    port=${services[${service}]}
+
+    echo "trying $service:$port"
+    for i in $(seq 1 $TIMEOUT); do
+
+        nc -w 5 -z $service $port 2>&1
+        RET_CODE=$?
+        if [ "$RET_CODE" -ne "0" ]; then
+            echo -n "."
+            sleep 1
+        else
+            echo "$service:$port OK"
+            break
+        fi
+
+    done
+
+    # after a timeout (or break) check if there still were errors
+    if [ "$RET_CODE" -ne "0" ]; then
+        HAS_ERRORS=$RET_CODE
+    fi
+
+done
+
+exit $HAS_ERRORS
