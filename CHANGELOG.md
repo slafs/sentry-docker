@@ -1,5 +1,11 @@
 # Changelog
 
+## 2014-10-09
+
+- change the name of the config script (this is a possible *breaking change*
+  but now you can easily extend this image and configuration)
+- make it possible to "test" this image
+
 ## 2014-10-06
 
 - updated ``requirements.txt`` (``django-auth-ldap`` and ``hiredis``)
