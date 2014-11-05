@@ -1,5 +1,9 @@
 # Changelog
 
+## 2014-11-05
+
+- update django-redis requirement
+
 ## 2014-10-09
 
 - change the name of the config script (this is a possible *breaking change*
