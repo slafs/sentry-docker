@@ -22,3 +22,7 @@ ADD sentry_run /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/sentry_run"]
 
 CMD ["start"]
+
+# some cleanup
+RUN apt-get clean
+RUN rm -f /wheels/*

@@ -3,6 +3,7 @@
 ## 2014-11-05
 
 - update django-redis requirement
+- add some cleanup at the end of build process
 
 ## 2014-10-09
 
