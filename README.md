@@ -220,6 +220,10 @@ LDAP_FIND_GROUP_PERMS       | AUTH_LDAP_FIND_GROUP_PERMS                    | bo
 LDAP_CACHE_GROUPS           | AUTH_LDAP_CACHE_GROUPS                        | bool | True                                                  |
 LDAP_GROUP_CACHE_TIMEOUT    | AUTH_LDAP_GROUP_CACHE_TIMEOUT                 | int  | 3600                                                  |
 LDAP_LOGLEVEL               |                                               |      | ``DEBUG``                                             | django_auth_ldap logger level (other values: NOTSET (to disable), INFO, WARNING, ERROR or CRITICAL)
+SENTRY_INITIAL_TEAM         |                                               |      |                                                       | convenient in development - creates an initial team inside Sentry DB with the given name
+SENTRY_INITIAL_PROJECT      |                                               |      |                                                       | convenient in development - creates an initial project for the above team (owner for both is the created admin )
+SENTRY_INITIAL_KEY          |                                               |      |                                                       | convenient in development - updates a key for the above project so you can set DSN in your client. (e.g. ``public:secret``)
+SENTRY_SCRIPTS_DIR          |                                               |      |                                                       | convenient in development - required for the wrapper and non Docker scenarios (you can leave this empty)
 
 
 ## Extending the image ##
@@ -287,3 +291,30 @@ becomes this:
 ```
 docker run -d --name=... --volume=... -p 80:5000 -e SECRET_KEY=... -e SENTRY_URL_PREFIX=http://... my_custom_sentry_image
 ```
+
+### Image for development
+
+If you'd like to use a preconfigured image just to be able to use it in your
+development process (for example to check if your application is properly logging to sentry)
+you can also create your own image for this.
+
+Following ``Dockerfile`` should be OK::
+
+    # inherit from this image
+    FROM slafs/sentry
+
+    # who's the boss? :)
+    MAINTAINER me
+
+    ENV SECRET_KEY somethingsecret
+    ENV SENTRY_URL_PREFIX http://sentry.domain.com
+
+    ENV SENTRY_INITIAL_TEAM testteam
+    ENV SENTRY_INITIAL_PROJECT testproject
+    ENV SENTRY_INITIAL_KEY public:secret
+
+    RUN /usr/local/bin/sentry_run prepare
+
+Now after building it (like in the above example) ``my_custom_sentry_image`` can
+be started without any env variables and you can use ``http://public:secret@sentry.domain.com:9000/2``
+as your ``SENTRY_DSN`` setting for raven (or other sentry client of your choice).

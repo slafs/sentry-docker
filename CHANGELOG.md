@@ -4,6 +4,9 @@
 
 - update django-redis requirement
 - add some cleanup at the end of build process
+- add new env vars for initial team, project and project key (``SENTRY_INITIAL_*``)
+- add new command ``prepare`` for the wrapper script to just prepare the datbase
+  and other stuff without running the http sevice.
 
 ## 2014-10-09
 

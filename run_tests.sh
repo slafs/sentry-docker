@@ -12,13 +12,13 @@ last_errorcode=0
 
 
 for figfile in $(find $DIR_TO_TEST -name fig.yml); do
-    echo -e "\033[32m-------------------------\033[0m"
-    echo -e "\033[32mtrying $figfile\033[0m"
-    echo -e "\033[32m-------------------------\033[0m"
+    echo -e "\033[33m-------------------------\033[0m"
+    echo -e "\033[33mtrying $figfile\033[0m"
+    echo -e "\033[33m-------------------------\033[0m"
 
     FIG="fig -f $figfile"
 
-    $FIG build test
+    $FIG build
     $FIG run --rm test
     exitcode=$?
     if [ "$exitcode" == "0" ]; then

@@ -1,0 +1,16 @@
+sentryweb:
+    build: .  # this will use a main Dockerfile in this repo
+    command: "start"
+    environment:
+        - SECRET_KEY=123123123
+        - SENTRY_URL_PREFIX=http://sentryweb
+        - SENTRY_INITIAL_TEAM=testteam
+        - SENTRY_INITIAL_PROJECT=testproject
+        - SENTRY_INITIAL_KEY=pub:sec
+
+test:
+    build: tests/initial_team_project
+    environment:
+        - SENTRY_DSN=http://pub:sec@sentryweb:9000/2
+    links:
+        - sentryweb:sentryweb

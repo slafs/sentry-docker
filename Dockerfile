@@ -23,6 +23,9 @@ ENTRYPOINT ["/usr/local/bin/sentry_run"]
 
 CMD ["start"]
 
+ADD scripts/create_team_or_project.py /conf/
+
 # some cleanup
 RUN apt-get clean
 RUN rm -f /wheels/*
+
