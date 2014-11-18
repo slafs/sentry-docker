@@ -1,0 +1,7 @@
+### a minimal set of settings for running without docker
+
+export SENTRY_URL_PREFIX=http://sentry.slafs.com
+export SECRET_KEY=secret
+export SENTRY_DATA_DIR=/tmp/sentry
+export SENTRY_SCRIPTS_DIR=./scripts
+export SENTRY_CONF_FILE=./sentry_docker_conf.py

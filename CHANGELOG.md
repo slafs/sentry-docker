@@ -1,5 +1,10 @@
 # Changelog
 
+## 2014-11-18
+
+- added ``SENTRY_INTIAL_DOMAINS`` for allowed domains
+
+
 ## 2014-11-05
 
 - update django-redis requirement

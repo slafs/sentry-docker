@@ -9,6 +9,8 @@ configure()
 
 # Do something crazy
 from sentry.models import Team, Project, ProjectKey, User
+from sentry.web.forms.fields import OriginsField
+from django.forms import ValidationError
 
 
 def create_team(admin_username, team_name):
@@ -34,6 +36,26 @@ def enforce_key(project, key_string):
     key.save()
 
 
+def update_origins(team_name, project_name, origins):
+    '''
+    ``origins`` should be space separated
+    '''
+    project = Project.objects.get(name=project_name, team__name=team_name)
+
+    # prepare for input
+    new_origins = "\n".join(origins.split())
+    origins_field = OriginsField()
+    try:
+        values = origins_field.clean(new_origins)
+    except ValidationError as ex:
+        print('x ! ' * 50)
+        print('Something went wrong while updating allowed domains:')
+        print(ex)
+        print('x ! ' * 50)
+    else:
+        project.update_option('sentry:origins', values or [])
+
+
 def print_dsn(project):
     key = ProjectKey.objects.get(project=project)
     print('=' * 50)
@@ -57,6 +79,10 @@ def main():
     to modify key for a project::
 
         python create_team_or_project.py key teamname projectname public:secret
+
+    to modify allowed domains for a project pass a space separated list like this::
+
+        python create_team_or_project.py origins teamname projectname 'example.com *.example.com'
     '''
     command = sys.argv[1]
     if command == 'team':
@@ -74,6 +100,12 @@ def main():
             print_dsn(project)
         elif proj_created is True:
             print_dsn(project)
+    elif command in ('origins'):
+        team_name = sys.argv[2]
+        project_name = sys.argv[3]
+        origins = sys.argv[4]
+        update_origins(team_name, project_name, origins)
+
 
 if __name__ == '__main__':
     main()

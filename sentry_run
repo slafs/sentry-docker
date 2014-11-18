@@ -29,6 +29,9 @@ EOF
             if [ -n "$SENTRY_INITIAL_KEY" ]; then
                 python $SCRIPTS_DIR/create_team_or_project.py key $SENTRY_INITIAL_TEAM $SENTRY_INITIAL_PROJECT $SENTRY_INITIAL_KEY
             fi
+            if [ -n "$SENTRY_INITIAL_DOMAINS" ]; then
+                python $SCRIPTS_DIR/create_team_or_project.py origins $SENTRY_INITIAL_TEAM $SENTRY_INITIAL_PROJECT "$SENTRY_INITIAL_DOMAINS"
+            fi
         fi
     fi
 fi

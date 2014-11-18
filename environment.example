@@ -72,6 +72,13 @@ SECRET_KEY=
 #LDAP_GROUP_CACHE_TIMEOUT=3600
 
 
-# others
-#SENTRY_DATA_DIR=/data
+## others
 #SENTRY_ALLOW_REGISTRATION=True
+#SENTRY_DATA_DIR=/data
+#SENTRY_SCRIPTS_DIR=/conf
+
+## bootstraping a project
+#SENTRY_INITIAL_TEAM=testteam
+#SENTRY_INITIAL_PROJECT=testproject
+#SENTRY_INITIAL_KEY=public:secret
+#SENTRY_INITIAL_DOMAINS="domain.com *.domain.com"
