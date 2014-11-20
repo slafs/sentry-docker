@@ -1,9 +1,9 @@
 # Changelog
 
-## 2014-11-18
+## 2014-11-20
 
-- added ``SENTRY_INTIAL_DOMAINS`` for allowed domains
-
+- added ``SENTRY_INTIAL_DOMAINS`` for allowed domains (see #7)
+- allow setting ``SENTRY_SECURE_PROXY_SSL_HEADER`` and ``SENTRY_USE_X_FORWARDED_HOST`` (see #6)
 
 ## 2014-11-05
 

@@ -79,8 +79,8 @@ SENTRY_URL_PREFIX = config('SENTRY_URL_PREFIX')  # No trailing slash!
 
 # If you're using a reverse proxy, you should enable the X-Forwarded-Proto
 # and X-Forwarded-Host headers, and uncomment the following settings
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = config('SENTRY_SECURE_PROXY_SSL_HEADER', default=None, cast=lambda x: tuple(x.split(',')) if x else None)
+USE_X_FORWARDED_HOST = config('SENTRY_USE_X_FORWARDED_HOST', default=False, cast=bool)
 
 SENTRY_WEB_HOST = config('SENTRY_WEB_HOST', default='0.0.0.0')
 SENTRY_WEB_PORT = config('SENTRY_WEB_PORT', default=9000, cast=int)
