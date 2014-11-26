@@ -23,7 +23,7 @@ def create_team(admin_username, team_name):
 def create_project(team_name, project_name):
     team = Team.objects.get(name=team_name)
     project, new = Project.objects.get_or_create(name=project_name, team=team,
-                                                 defaults={'owner': team.owner})
+                                                 defaults={'owner': team.owner, 'platform': 'python'})
 
     return project, new
 
