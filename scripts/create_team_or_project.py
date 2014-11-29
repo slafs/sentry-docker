@@ -20,10 +20,11 @@ def create_team(admin_username, team_name):
     return team, new
 
 
-def create_project(team_name, project_name):
+def create_project(team_name, project_name, platform='python'):
     team = Team.objects.get(name=team_name)
     project, new = Project.objects.get_or_create(name=project_name, team=team,
-                                                 defaults={'owner': team.owner, 'platform': 'python'})
+                                                 defaults={'owner': team.owner,
+                                                           'platform': platform})
 
     return project, new
 
@@ -92,7 +93,8 @@ def main():
     elif command in ('project', 'key'):
         team_name = sys.argv[2]
         project_name = sys.argv[3]
-        project, proj_created = create_project(team_name, project_name)
+        platform = sys.argv[4]
+        project, proj_created = create_project(team_name, project_name, platform)
 
         if command == 'key':
             key = sys.argv[4]

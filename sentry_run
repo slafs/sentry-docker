@@ -25,7 +25,7 @@ EOF
     if [ -n "$SENTRY_INITIAL_TEAM" ]; then
         python $SCRIPTS_DIR/create_team_or_project.py team ${SENTRY_ADMIN_USERNAME:-admin} $SENTRY_INITIAL_TEAM
         if [ -n "$SENTRY_INITIAL_PROJECT" ]; then
-            python $SCRIPTS_DIR/create_team_or_project.py project $SENTRY_INITIAL_TEAM $SENTRY_INITIAL_PROJECT
+            python $SCRIPTS_DIR/create_team_or_project.py project $SENTRY_INITIAL_TEAM $SENTRY_INITIAL_PROJECT ${SENTRY_INITIAL_PLATFORM:-python}
             if [ -n "$SENTRY_INITIAL_KEY" ]; then
                 python $SCRIPTS_DIR/create_team_or_project.py key $SENTRY_INITIAL_TEAM $SENTRY_INITIAL_PROJECT $SENTRY_INITIAL_KEY
             fi
