@@ -86,3 +86,6 @@ SECRET_KEY=
 ## Proxy & SSL
 #SENTRY_SECURE_PROXY_SSL_HEADER=HTTP_X_FORWARDED_PROTO,https
 #SENTRY_USE_X_FORWARDED_HOST=True
+
+## allows JavaScript clients to submit cross-domain error reports.
+#SENTRY_ALLOW_ORIGIN="http://foo.example"
