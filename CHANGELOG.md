@@ -1,5 +1,9 @@
 # Changelog
 
+## 2014-12-01
+
+- added ``SENTRY_ALLOW_ORIGIN`` - thanks to @josh-devops-center
+
 ## 2014-11-30
 
 - FIX: determine platform when creating a project (via ``SENTRY_INITIAL_PLATFORM``) - thanks to @josh-devops-center
