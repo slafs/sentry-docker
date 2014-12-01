@@ -92,6 +92,9 @@ SENTRY_WEB_OPTIONS = {
     'accesslog' : os.path.join(DATA_DIR, 'gunicorn_access.log'),
 }
 
+# allows JavaScript clients to submit cross-domain error reports. Useful for local development
+SENTRY_ALLOW_ORIGIN = config('SENTRY_ALLOW_ORIGIN', default=None)
+
 #################
 # Mail Server ##
 #################
