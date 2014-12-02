@@ -15,6 +15,8 @@ RUN easy_install sentry[postgres]==dev
 
 EXPOSE 9000
 
+VOLUME ["/data"]
+
 ADD sentry_docker_conf.py /conf/
 ADD sentry_run /usr/local/bin/
 
