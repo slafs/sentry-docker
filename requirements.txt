@@ -9,7 +9,7 @@ hiredis==0.1.5
 nydus==0.10.8
 
 # sentry
-http://github.com/getsentry/sentry/tarball/master#egg=sentry[postgres]
+sentry[postgres]==6.4.4
 
 # ldap user store
 django-auth-ldap==1.2.3
