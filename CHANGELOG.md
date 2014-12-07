@@ -1,5 +1,10 @@
 # Changelog
 
+## 2014-12-07
+
+- updated ``django-redis`` to 3.8.0
+- provide builds from sentry's master github branch
+
 ## 2014-12-01
 
 - added ``SENTRY_ALLOW_ORIGIN`` - thanks to @josh-devops-center
