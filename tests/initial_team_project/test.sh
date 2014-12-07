@@ -2,7 +2,7 @@
 
 
 HAS_ERRORS=0
-TIMEOUT=120  # seconds
+TIMEOUT=210  # seconds
 
 echo
 echo "waiting for sentryweb:9000"
