@@ -2,7 +2,7 @@
 
 
 HAS_ERRORS=0
-TIMEOUT=150  # seconds
+TIMEOUT=180  # seconds
 
 echo
 echo "waiting for sentryweb:9000"
@@ -17,6 +17,7 @@ for i in $(seq 1 $TIMEOUT); do
         sleep 1
     else
         echo "sentryweb:9000 OK"
+        sleep 2
         raven test
         HAS_ERRORS=$?
         break

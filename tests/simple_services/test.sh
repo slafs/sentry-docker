@@ -1,7 +1,7 @@
 #!/bin/bash
 
 HAS_ERRORS=0
-TIMEOUT=150  # seconds
+TIMEOUT=180  # seconds
 
 declare -A services
 services[redis]=6379

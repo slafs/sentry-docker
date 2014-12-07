@@ -1,7 +1,7 @@
 #!/bin/bash
 
 HAS_ERRORS=0
-TIMEOUT=150  # seconds
+TIMEOUT=180  # seconds
 
 echo
 echo "waiting for sentryweb:9090"
