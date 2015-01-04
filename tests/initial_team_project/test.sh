@@ -17,6 +17,7 @@ for i in $(seq 1 $TIMEOUT); do
         sleep 1
     else
         echo "sentryweb:9000 OK"
+        sleep 2
         raven test
         HAS_ERRORS=$?
         break

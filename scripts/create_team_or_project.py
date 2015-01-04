@@ -8,9 +8,12 @@ from sentry.utils.runner import configure
 configure()
 
 # Do something crazy
+import sentry
 from sentry.models import Team, Project, ProjectKey, User
 from sentry.web.forms.fields import OriginsField
 from django.forms import ValidationError
+
+SENTRY_VERSION = tuple(map(lambda x: int(x) if x.isdigit() else x, sentry.get_version().split('.')))
 
 
 def create_team(admin_username, team_name):
@@ -22,9 +25,11 @@ def create_team(admin_username, team_name):
 
 def create_project(team_name, project_name, platform='python'):
     team = Team.objects.get(name=team_name)
+    defaults = {'owner': team.owner, 'platform': platform}
+    if SENTRY_VERSION >= (7, 0):
+        del defaults['owner']
     project, new = Project.objects.get_or_create(name=project_name, team=team,
-                                                 defaults={'owner': team.owner,
-                                                           'platform': platform})
+                                                 defaults=defaults)
 
     return project, new
 
