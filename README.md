@@ -1,6 +1,18 @@
 Sentry in Docker
 ==================
 
+## Warning about build tags ##
+
+Latest changes introduced some new build tags:
+
+* **7.0**  - current stable version (7.0.X)
+* **6.4** - old stable version (6.4.4)
+* **dev** - current master on github (infrequent builds)
+* **latest** (the default one used earlier) - is now the same as **7.0**
+
+if you want to keep your builds same as before update your Dockerfiles and change
+```FROM slafs/sentry``` to ```FROM slafs/sentry:6.4```.
+
 [![Requirements Status](https://requires.io/github/slafs/sentry-docker/requirements.png?branch=master)](https://requires.io/github/slafs/sentry-docker/requirements/?branch=master)
 
 This is my approach for running [Sentry](https://getsentry.com) inside [Docker](https://docker.com/).
@@ -228,7 +240,7 @@ SENTRY_INITIAL_DOMAINS          |                                               
 SENTRY_SCRIPTS_DIR              |                                               |      |                                                       | convenient in development - required for the wrapper and non Docker scenarios (you can leave this empty)
 SENTRY_SECURE_PROXY_SSL_HEADER  | SECURE_PROXY_SSL_HEADER                       |      | None                                                  | when running with SSL set this to 'HTTP_X_FORWARDED_PROTO,https' (comma separated)
 SENTRY_USE_X_FORWARDED_HOST     | USE_X_FORWARDED_HOST                          | bool | False                                                 | when running behind proxy or with SSL set this to 'True'
-SENTRY_ALLOW_ORIGIN             | SENTRY_ALLOW_ORIGIN                           |      | None                                                  | allows JavaScript clients to submit cross-domain error reports. (e.g. ``"http://foo.example"`` 
+SENTRY_ALLOW_ORIGIN             | SENTRY_ALLOW_ORIGIN                           |      | None                                                  | allows JavaScript clients to submit cross-domain error reports. (e.g. ``"http://foo.example"``
 
 
 ## Extending the image ##
