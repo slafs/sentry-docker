@@ -1,5 +1,14 @@
 # Changelog
 
+## 2015-01-08
+
+- updated ``requirements.txt`` (``django-redis``)
+
+## 2015-01-04
+
+- updated ``requirements.txt`` (``django-auth-ldap``)
+- new Sentry 7.0.X and several new build tags on docker hub
+
 ## 2014-12-07
 
 - updated ``django-redis`` to 3.8.0
