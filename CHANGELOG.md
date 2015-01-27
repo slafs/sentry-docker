@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-01-27
+
+- updated ``requirements.txt`` (``django-redis``)
+
 ## 2015-01-08
 
 - updated ``requirements.txt`` (``django-redis``)
