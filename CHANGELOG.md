@@ -2,6 +2,7 @@
 
 ## 2015-01-27
 
+- new tag/branch ``7.1``
 - updated ``requirements.txt`` (``django-redis``)
 
 ## 2015-01-08
