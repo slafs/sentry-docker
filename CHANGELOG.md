@@ -1,5 +1,10 @@
 # Changelog
 
+## 2015-02-12
+
+- updated ``requirements.txt`` (``django-auth-ldap`` and ``hiredis``)
+- new Sentry 7.2.X
+
 ## 2015-01-27
 
 - new tag/branch ``7.1``
