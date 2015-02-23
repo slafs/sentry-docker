@@ -3,6 +3,7 @@
 ## 2015-02-23
 
 - updated ``requirements.txt`` (``django-redis``)
+- new Sentry 7.3.X
 
 ## 2015-02-12
 
