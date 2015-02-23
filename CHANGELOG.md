@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-02-23
+
+- updated ``requirements.txt`` (``django-redis``)
+
 ## 2015-02-12
 
 - updated ``requirements.txt`` (``django-auth-ldap`` and ``hiredis``)
