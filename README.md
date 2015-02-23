@@ -200,7 +200,7 @@ SENTRY_SERVER_EMAIL             | SERVER_EMAIL                                  
 SENTRY_ALLOW_REGISTRATION       | SENTRY_ALLOW_REGISTRATION                     | bool | False                                                 |
 SENTRY_ADMIN_USERNAME           |                                               |      | admin                                                 | username for Sentry's superuser
 SENTRY_ADMIN_PASSWORD           |                                               |      | admin                                                 | password for Sentry's superuser
-SENTRY_ADMIN_EMAIL              |                                               |      | root@localhost                                        | email address for Sentry's superuser
+SENTRY_ADMIN_EMAIL              | SENTRY_ADMIN_EMAIL                            |      | root@localhost                                        | email address for Sentry's superuser and a setting as of Sentry 7.3
 SENTRY_DATA_DIR                 |                                               |      | ``/data``                                             | custom location for logs and sqlite database
 TWITTER_CONSUMER_KEY            | TWITTER_CONSUMER_KEY                          |      | ''                                                    |
 TWITTER_CONSUMER_SECRET         | TWITTER_CONSUMER_SECRET                       |      | ''                                                    |
@@ -244,6 +244,7 @@ SENTRY_SCRIPTS_DIR              |                                               
 SENTRY_SECURE_PROXY_SSL_HEADER  | SECURE_PROXY_SSL_HEADER                       |      | None                                                  | when running with SSL set this to 'HTTP_X_FORWARDED_PROTO,https' (comma separated)
 SENTRY_USE_X_FORWARDED_HOST     | USE_X_FORWARDED_HOST                          | bool | False                                                 | when running behind proxy or with SSL set this to 'True'
 SENTRY_ALLOW_ORIGIN             | SENTRY_ALLOW_ORIGIN                           |      | None                                                  | allows JavaScript clients to submit cross-domain error reports. (e.g. ``"http://foo.example"``
+SENTRY_BEACON                   | SENTRY_BEACON                                 | bool | True                                                  | controls sending statistics to https://www.getsentry.com/remote/beacon/
 
 
 ## Extending the image ##

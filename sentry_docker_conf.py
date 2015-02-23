@@ -152,6 +152,9 @@ BITBUCKET_CONSUMER_SECRET = config('BITBUCKET_CONSUMER_SECRET', default='')
 ALLOWED_HOSTS = ['*']
 LOGGING['disable_existing_loggers'] = False
 
+SENTRY_BEACON = config('SENTRY_BEACON', default=True, cast=bool)
+SENTRY_ADMIN_EMAIL = config('SENTRY_ADMIN_EMAIL', default='root@localhost')
+
 ####################
 # LDAP settings ##
 ####################
