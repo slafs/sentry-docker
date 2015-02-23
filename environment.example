@@ -76,6 +76,7 @@ SECRET_KEY=
 #SENTRY_ALLOW_REGISTRATION=True
 #SENTRY_DATA_DIR=/data
 #SENTRY_SCRIPTS_DIR=/conf
+#SENTRY_BEACON=False
 
 ## bootstraping a project
 #SENTRY_INITIAL_TEAM=testteam

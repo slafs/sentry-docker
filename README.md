@@ -5,12 +5,13 @@ Sentry in Docker
 
 Latest changes introduced some new build tags:
 
-* **7.2**  - current stable version (7.2.X)
-* **7.1**  - old stable version (7.1.4)
-* **7.0**  - older stable version (7.0.2)
-* **6.4** - even older stable version (6.4.4)
+* **7.3**  - current stable version (7.3.X)
+* **7.2**  - old stable version (7.2.0)
+* **7.1**  - old stable version (7.1.4) - no longer updated
+* **7.0**  - older stable version (7.0.2) - no longer updated
+* **6.4** - even older stable version (6.4.4) - no longer updated
 * **dev** - current master on github (infrequent builds)
-* **latest** (the default one used earlier) - is now the same as **7.2**
+* **latest** (the default one used earlier) - is now the same as **7.3**
 
 if you want to keep your builds same as before update your Dockerfiles and change
 ```FROM slafs/sentry``` to ```FROM slafs/sentry:6.4```.
@@ -199,7 +200,7 @@ SENTRY_SERVER_EMAIL             | SERVER_EMAIL                                  
 SENTRY_ALLOW_REGISTRATION       | SENTRY_ALLOW_REGISTRATION                     | bool | False                                                 |
 SENTRY_ADMIN_USERNAME           |                                               |      | admin                                                 | username for Sentry's superuser
 SENTRY_ADMIN_PASSWORD           |                                               |      | admin                                                 | password for Sentry's superuser
-SENTRY_ADMIN_EMAIL              |                                               |      | root@localhost                                        | email address for Sentry's superuser
+SENTRY_ADMIN_EMAIL              | SENTRY_ADMIN_EMAIL                            |      | root@localhost                                        | email address for Sentry's superuser and a setting as of Sentry 7.3
 SENTRY_DATA_DIR                 |                                               |      | ``/data``                                             | custom location for logs and sqlite database
 TWITTER_CONSUMER_KEY            | TWITTER_CONSUMER_KEY                          |      | ''                                                    |
 TWITTER_CONSUMER_SECRET         | TWITTER_CONSUMER_SECRET                       |      | ''                                                    |
@@ -243,6 +244,7 @@ SENTRY_SCRIPTS_DIR              |                                               
 SENTRY_SECURE_PROXY_SSL_HEADER  | SECURE_PROXY_SSL_HEADER                       |      | None                                                  | when running with SSL set this to 'HTTP_X_FORWARDED_PROTO,https' (comma separated)
 SENTRY_USE_X_FORWARDED_HOST     | USE_X_FORWARDED_HOST                          | bool | False                                                 | when running behind proxy or with SSL set this to 'True'
 SENTRY_ALLOW_ORIGIN             | SENTRY_ALLOW_ORIGIN                           |      | None                                                  | allows JavaScript clients to submit cross-domain error reports. (e.g. ``"http://foo.example"``
+SENTRY_BEACON                   | SENTRY_BEACON                                 | bool | True                                                  | controls sending statistics to https://www.getsentry.com/remote/beacon/
 
 
 ## Extending the image ##
