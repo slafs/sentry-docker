@@ -11,25 +11,25 @@ DIR_TO_TEST=${1:-"./tests"}
 last_errorcode=0
 
 
-for figfile in $(find $DIR_TO_TEST -name fig.yml); do
+for composefile in $(find $DIR_TO_TEST -name docker-compose.yml); do
     echo -e "\033[33m-------------------------\033[0m"
-    echo -e "\033[33mtrying $figfile\033[0m"
+    echo -e "\033[33mtrying $composefile\033[0m"
     echo -e "\033[33m-------------------------\033[0m"
 
-    FIG="fig -f $figfile"
+    COMPOSE="docker-compose -f $composefile"
 
-    $FIG build
-    $FIG run --rm test
+    $COMPOSE build
+    $COMPOSE run --rm test
     exitcode=$?
     if [ "$exitcode" == "0" ]; then
-        echo -e "\033[32mSUCCESS $figfile\033[0m"
+        echo -e "\033[32mSUCCESS $composefile\033[0m"
     else
         last_errorcode=$exitcode
-        echo -e "\033[31mFAILURE $figfile\033[0m"
+        echo -e "\033[31mFAILURE $composefile\033[0m"
     fi
 
-    $FIG stop
-    $FIG rm -v --force
+    $COMPOSE stop
+    $COMPOSE rm -v --force
 done
 
 if [ "$last_errorcode" == "0" ]; then

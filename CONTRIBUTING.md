@@ -9,31 +9,31 @@ All files in this repo shouldn't be Docker specific
 (besides ``Dockerfile`` of course :P).
 That is you should be able to use a local installation of
 sentry (after installing required system dependencies as stated in
-``Dockerfile``) and use files in this repo as a starting point 
+``Dockerfile``) and use files in this repo as a starting point
 for your sentry installation (after tweaking some env var like for example
 ``SENTRY_DATA_DIR``)
 
 ## Tests
 
-If you want to add a feature that requires some testing 
+If you want to add a feature that requires some testing
 you can do this by creating a directory lets say ``feature_X``
 inside ``tests/`` directory.
 
-This directory has to contain at least one file called ``fig.yml``
+This directory has to contain at least one file called ``docker-compose.yml``
 which should define at least one service called ``test``.
 This service should define a container which will run the check
 whether or not your feature works with this image.
 This could be any script like a simple netcat (nc) call to
 check if a port is open on a given host.
 
-To run the tests you have to install fig:
+To run the tests you have to install docker-compose:
 
-    pip install fig
+    pip install docker-compose
 
-Go to [fig.sh](http://www.fig.sh) for more info about how to install 
-and use Fig.
+Go to [docker-compose](http://docs.docker.com/compose/) page for more info about
+how to install and use Compose.
 
-``fig.yml`` has to be written as if it was run from the main directory
+``docker-compose.yml`` has to be written as if it was run from the main directory
 of this repo (the one that contains ``tests``, ``sentry_docker_conf.py`` etc.).
 This is specially important when writing the ``build`` key.
 
@@ -46,6 +46,5 @@ Refer to ``tests/simple_services/`` for an example of a simple
 testing script and a configuration file.
 
 Unfortunately as for now you should provide some kind of
-timeout (120 seconds should be enough) to let other containers
+timeout (210 seconds should be enough) to let other containers
 start properly (i.e. sentry could create the database tables etc.)
-
