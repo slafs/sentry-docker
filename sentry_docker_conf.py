@@ -24,6 +24,7 @@ if 'postgres' in DATABASES['default']['ENGINE']:
     }
 
 CACHES = {'default': django_cache_url.config() }
+SENTRY_CACHE = 'sentry.cache.django.DjangoCache'
 
 ###########
 # Queue ##
@@ -69,6 +70,7 @@ if SENTRY_USE_REDIS_BUFFERS:
     SENTRY_REDIS_OPTIONS = {
         'hosts': _REDIS_HOSTS
     }
+    SENTRY_CACHE = 'sentry.cache.redis.RedisCache'
 
 ################
 # Web Server ##
@@ -117,7 +119,7 @@ SERVER_EMAIL = config('SENTRY_SERVER_EMAIL', default='root@localhost')
 # etc. ##
 ###########
 
-SENTRY_ALLOW_REGISTRATION = config('SENTRY_ALLOW_REGISTRATION', default=False, cast=bool)
+SENTRY_FEATURES['auth:register'] = config('SENTRY_ALLOW_REGISTRATION', default=False, cast=bool)
 
 # If this file ever becomes compromised, it's important to regenerate your SECRET_KEY
 # Changing this value will result in all current sessions being invalidated
