@@ -37,5 +37,5 @@ EOF
 fi
 
 if [ "$1" != "prepare" ]; then
-    sentry --config=$SENTRY_CONF_FILE $@
+    exec sentry --config=$SENTRY_CONF_FILE $@
 fi
