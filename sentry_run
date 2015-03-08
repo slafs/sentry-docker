@@ -39,3 +39,4 @@ fi
 if [ "$1" != "prepare" ]; then
     exec sentry --config=$SENTRY_CONF_FILE $@
 fi
+
