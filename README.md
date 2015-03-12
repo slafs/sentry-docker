@@ -155,6 +155,16 @@ You can also set a different ``BROKER_URL`` via environment file by adding this:
 
 You can run as many celery worker containers as you want but remember that only one of them should be run with ``-B`` option.
 
+#### Time-series storage with redis
+
+To have [time-series data](http://sentry.readthedocs.org/en/latest/tsdb/index.html) you must add
+``SENTRY_USE_REDIS_TSDB=True`` to the environment file.
+
+By default Redis time-series storage will use the Redis connection
+defined by ``SENTRY_REDIS_HOST`` and ``SENTRY_REDIS_PORT``. Similarly
+to configuring buffers, you can set ``SENTRY_REDIS_TSDBS`` to a list
+of Redis servers: ``SENTRY_REDIS_TSDBS=redis1:6379,redis2:6380``
+
 ###Email
 
 You can configure all [email settings](http://sentry.readthedocs.org/en/latest/quickstart/index.html#configure-outbound-mail)
@@ -191,6 +201,8 @@ SENTRY_WEB_PORT                 | SENTRY_WEB_PORT                               
 SENTRY_WORKERS                  | SENTRY_WEB_OPTIONS['workers']                 | int  | 3                                                     | the number of gunicorn workers
 SENTRY_USE_REDIS_BUFFER         |                                               | bool | False                                                 |
 SENTRY_REDIS_BUFFERS            | SENTRY_REDIS_OPTIONS['hosts']*                | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
+SENTRY_USE_REDIS_TSDB           |                                               | bool | False                                                 |
+SENTRY_REDIS_TSDBS              | SENTRY_TSDB_OPTIONS['hosts']*                 | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
 SENTRY_EMAIL_BACKEND            | EMAIL_BACKEND                                 |      | django.core.mail.backends.console.EmailBackend        |
 SENTRY_EMAIL_HOST               | EMAIL_HOST                                    |      | localhost                                             |
 SENTRY_EMAIL_HOST_PASSWORD      | EMAIL_HOST_PASSWORD                           |      | ''                                                    |

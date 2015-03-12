@@ -26,6 +26,24 @@ if 'postgres' in DATABASES['default']['ENGINE']:
 CACHES = {'default': django_cache_url.config() }
 SENTRY_CACHE = 'sentry.cache.django.DjangoCache'
 
+
+def nydus_config(from_env_var):
+    """
+    Generate a Nydus Redis configuration from an ENV variable of the form "server:port,server:port..."
+    Default to REDIS_HOST:REDIS_PORT if the ENV variable is not provided.
+    """
+    redis_servers_cast = lambda x: list(r.split(':') for r in x.split(','))
+    servers = config(from_env_var, default='{0}:{1}'.format(REDIS_HOST, REDIS_PORT), cast=redis_servers_cast)
+    _redis_hosts = {}
+
+    for r_index, r_host_pair in enumerate(servers):
+        _redis_hosts[r_index] = {'host': r_host_pair[0], 'port': int(r_host_pair[1])}
+
+    return {
+        'hosts': _redis_hosts
+    }
+
+
 ###########
 # Queue ##
 ###########
@@ -55,22 +73,23 @@ BROKER_URL = config('SENTRY_BROKER_URL', default=DEFAULT_BROKER_URL)
 
 SENTRY_USE_REDIS_BUFFERS = config('SENTRY_USE_REDIS_BUFFERS', default=False, cast=bool)
 
-redis_buffers_cast = lambda x: list(r.split(':') for r in x.split(','))
-
-SENTRY_REDIS_BUFFERS = config('SENTRY_REDIS_BUFFERS', default='{0}:{1}'.format(REDIS_HOST, REDIS_PORT), cast=redis_buffers_cast)
-
 if SENTRY_USE_REDIS_BUFFERS:
     SENTRY_BUFFER = 'sentry.buffer.redis.RedisBuffer'
-
-    _REDIS_HOSTS = {}
-
-    for r_index, r_host_pair in enumerate(SENTRY_REDIS_BUFFERS):
-        _REDIS_HOSTS[r_index] = {'host': r_host_pair[0], 'port': int(r_host_pair[1])}
-
-    SENTRY_REDIS_OPTIONS = {
-        'hosts': _REDIS_HOSTS
-    }
+    SENTRY_REDIS_OPTIONS = nydus_config('SENTRY_REDIS_BUFFERS')
     SENTRY_CACHE = 'sentry.cache.redis.RedisCache'
+
+#######################
+# Time-series Storage #
+#######################
+# Sentry provides a service to store time-series data. Primarily this
+# is used to display aggregate information for events and projects, as
+# well as calculating (in real-time) the rates of events.
+
+SENTRY_USE_REDIS_TSDB = config('SENTRY_USE_REDIS_TSDB', default=False, cast=bool)
+
+if SENTRY_USE_REDIS_TSDB:
+    SENTRY_TSDB = 'sentry.tsdb.redis.RedisTSDB'
+    SENTRY_TSDB_OPTIONS = nydus_config('SENTRY_REDIS_TSDBS')
 
 ################
 # Web Server ##

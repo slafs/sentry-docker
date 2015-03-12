@@ -20,6 +20,10 @@ SECRET_KEY=
 #SENTRY_USE_REDIS_BUFFERS=True
 #SENTRY_REDIS_BUFFERS=redis1:6379,redis2:6379
 
+## redis time-series storage
+#SENTRY_USE_REDIS_TSDB=True
+#SENTRY_REDIS_TSDBS=redis1:6379,redis2:6379
+
 ## initial superuser
 #SENTRY_ADMIN_USERNAME=bob
 #SENTRY_ADMIN_PASSWORD=mysecretpass
