@@ -258,6 +258,7 @@ SENTRY_SECURE_PROXY_SSL_HEADER  | SECURE_PROXY_SSL_HEADER                       
 SENTRY_USE_X_FORWARDED_HOST     | USE_X_FORWARDED_HOST                          | bool | False                                                 | when running behind proxy or with SSL set this to 'True'
 SENTRY_ALLOW_ORIGIN             | SENTRY_ALLOW_ORIGIN                           |      | None                                                  | allows JavaScript clients to submit cross-domain error reports. (e.g. ``"http://foo.example"``
 SENTRY_BEACON                   | SENTRY_BEACON                                 | bool | True                                                  | controls sending statistics to https://www.getsentry.com/remote/beacon/
+SENTRY_PUBLIC                   | SENTRY_PUBLIC                                 | bool | False                                                 | Should Sentry make all data publicly accessible? This should only be used if you’re installing Sentry behind your company’s firewall.
 
 
 ## Extending the image ##

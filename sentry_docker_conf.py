@@ -26,6 +26,7 @@ if 'postgres' in DATABASES['default']['ENGINE']:
 CACHES = {'default': django_cache_url.config() }
 SENTRY_CACHE = 'sentry.cache.django.DjangoCache'
 
+SENTRY_PUBLIC = config('SENTRY_PUBLIC', default=False, cast=bool)
 
 def nydus_config(from_env_var):
     """
