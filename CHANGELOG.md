@@ -1,5 +1,10 @@
 # Changelog
 
+## 2015-03-16
+
+- Add support for SENTRY_PUBLIC (credit goes to: @abesto)
+
+
 ## 2015-03-12
 
 - Add support for configuring time-series storage (credit goes to:
