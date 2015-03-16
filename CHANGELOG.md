@@ -1,7 +1,13 @@
 # Changelog
 
+## 2015-03-12
+
+- Add support for configuring time-series storage (credit goes to:
+  @abesto)
+
 ## 2015-03-07
 
+- Properly pass SIGTERM to sentry process (credit goes to: @lorenz)
 - new Sentry 7.4.X
 - move from fig to docker-compose while testing
 - when ``SENTRY_USE_REDIS_BUFFERS`` is used then ``sentry.cache.redis.RedisCache`` is configured as a ``SENTRY_CACHE``
