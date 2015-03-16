@@ -6,6 +6,7 @@ import os.path
 from decouple import config
 import dj_database_url
 import django_cache_url
+import functools
 
 CONF_ROOT = os.path.dirname(__file__)
 DATA_DIR = config('SENTRY_DATA_DIR', default='/data')
@@ -241,3 +242,27 @@ if SENTRY_USE_LDAP:
     logger.addHandler(logging.StreamHandler())
     ldap_loglevel = getattr(logging, config('LDAP_LOGLEVEL', default='DEBUG'))
     logger.setLevel(ldap_loglevel)
+
+##############################
+# REMOTE_USER authentication #
+##############################
+
+SENTRY_USE_REMOTE_USER = config('SENTRY_USE_REMOTE_USER', default=False, cast=bool)
+
+if SENTRY_USE_REMOTE_USER:
+    AUTHENTICATION_BACKENDS += ('django.contrib.auth.backends.RemoteUserBackend',)
+
+    AUTH_REMOTE_USER_HEADER = config('AUTH_REMOTE_USER_HEADER', default=None)
+    if AUTH_REMOTE_USER_HEADER:
+        # The lazy hack is required because importing RemoteUserMiddleware at load time leads to a circular import
+        # The name is upper camel case because that's the only way to expose values from this config file
+        def build_LAZY_CUSTOM_REMOTE_USER_MIDDLEWARE(header, *args, **kwargs):
+            from django.contrib.auth.middleware import RemoteUserMiddleware
+            class CustomRemoteUserMiddleware(RemoteUserMiddleware):
+               pass
+            CustomRemoteUserMiddleware.header = header
+            return CustomRemoteUserMiddleware(*args, **kwargs)
+        LAZY_CUSTOM_REMOTE_USER_MIDDLEWARE = functools.partial(build_LAZY_CUSTOM_REMOTE_USER_MIDDLEWARE, AUTH_REMOTE_USER_HEADER)
+        MIDDLEWARE_CLASSES += ('sentry_config.LAZY_CUSTOM_REMOTE_USER_MIDDLEWARE',)
+    else:
+        MIDDLEWARE_CLASSES += ('django.contrib.auth.middleware.RemoteUserMiddleware',)
