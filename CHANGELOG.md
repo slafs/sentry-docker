@@ -1,9 +1,12 @@
 # Changelog
 
+## 2015-03-17
+
+- Add support for REMOTE_USER authentication (credit goes to: @abesto)
+
 ## 2015-03-16
 
 - Add support for SENTRY_PUBLIC (credit goes to: @abesto)
-
 
 ## 2015-03-12
 

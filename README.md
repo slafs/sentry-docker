@@ -21,7 +21,7 @@ if you want to keep your builds same as before update your Dockerfiles and chang
 
 This is my approach for running [Sentry](https://getsentry.com) inside [Docker](https://docker.com/).
 Almost everything here is configurable via environment variables (including DATABASES and CACHES settings).
-It can be easily configured to run with redis (cache, buffers and celery broker), postgres database and LDAP authentication backend.
+It can be easily configured to run with redis (cache, buffers and celery broker), postgres database, LDAP and REMOTE_USER authentication backends.
 
 ## Quickstart ##
 
@@ -179,6 +179,10 @@ Then set the needed options by adding env variables with ``LDAP_``
 prefix (see the table below). LDAP authentication backend is provided by
 [django-auth-ldap](https://pythonhosted.org/django-auth-ldap/).
 
+###REMOTE_USER
+To enable authentication via REMOTE_USER, add ``SENTRY_USE_REMOTE_USER=True`` to your ``environment`` file.
+See the ``AUTH_REMOTE_USER_*`` env variables below for further configuration.
+
 ## Available environment variables
 
 Refer to [sentry documentation](http://sentry.readthedocs.org/en/latest/config/index.html),
@@ -248,6 +252,8 @@ LDAP_FIND_GROUP_PERMS           | AUTH_LDAP_FIND_GROUP_PERMS                    
 LDAP_CACHE_GROUPS               | AUTH_LDAP_CACHE_GROUPS                        | bool | True                                                  |
 LDAP_GROUP_CACHE_TIMEOUT        | AUTH_LDAP_GROUP_CACHE_TIMEOUT                 | int  | 3600                                                  |
 LDAP_LOGLEVEL                   |                                               |      | ``DEBUG``                                             | django_auth_ldap logger level (other values: NOTSET (to disable), INFO, WARNING, ERROR or CRITICAL)
+SENTRY_USE_REMOTE_USER          |                                               | bool | False                                                 | use `REMOTE_USER` for authentication; useful if you're behind your own SSO
+AUTH_REMOTE_USER_HEADER         |                                               |      | None                                                  | if set, this value will be read from the request object instead of `REMOTE_USER`, as described [here](https://docs.djangoproject.com/en/1.7/howto/auth-remote-user/). For example: `HTTP_X_SSO_USERNAME`
 SENTRY_INITIAL_TEAM             |                                               |      |                                                       | convenient in development - creates an initial team inside Sentry DB with the given name
 SENTRY_INITIAL_PROJECT          |                                               |      |                                                       | convenient in development - creates an initial project for the above team (owner for both is the created admin )
 SENTRY_INITIAL_PLATFORM         |                                               |      | 'python'                                              | convenient in development - indicates a platform for the above initial project
