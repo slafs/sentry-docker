@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-03-26
+
+- updated ``Sentry`` to 7.4.3
+
 ## 2015-03-17
 
 - Add support for REMOTE_USER authentication (credit goes to: @abesto)
