@@ -186,7 +186,7 @@ SENTRY_USE_LDAP = config('SENTRY_USE_LDAP', default=False, cast=bool)
 
 if SENTRY_USE_LDAP:
     import ldap
-    from django_auth_ldap.config import LDAPSearch, GroupOfUniqueNamesType
+    from django_auth_ldap.config import LDAPSearch, GroupOfUniqueNamesType, PosixGroupType
 
     AUTH_LDAP_SERVER_URI = config('LDAP_SERVER', default='ldap://localhost')
 
@@ -207,6 +207,8 @@ if SENTRY_USE_LDAP:
 
     if config('LDAP_GROUP_TYPE', default='') == 'groupOfUniqueNames':
         AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()
+    elif config('LDAP_GROUP_TYPE', default='') == 'posixGroup':
+        AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 
     AUTH_LDAP_REQUIRE_GROUP = config('LDAP_REQUIRE_GROUP', default=None)
     AUTH_LDAP_DENY_GROUP = config('LDAP_DENY_GROUP', default=None)
