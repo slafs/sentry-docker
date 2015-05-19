@@ -11,6 +11,7 @@ RUN mkdir -p /conf /data /wheels
 ADD requirements.txt /conf/
 
 RUN pip wheel --wheel-dir=/wheels -r /conf/requirements.txt && pip install --find-links=/wheels -r /conf/requirements.txt
+RUN pip install sentry-slack
 
 EXPOSE 9000
 
