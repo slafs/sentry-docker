@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-05-19
+
+- updated ``requirements.txt`` (``django-redis``, ``hiredis`` and ``django-auth-ldap`` )
+
 ## 2015-03-26
 
 - updated ``Sentry`` to 7.4.3
