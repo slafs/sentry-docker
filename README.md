@@ -239,7 +239,7 @@ LDAP_USER_DN                    | AUTH_LDAP_USER_SEARCH*                        
 LDAP_USER_FILTER                | AUTH_LDAP_USER_SEARCH*                        |      | ``(&(objectClass=inetOrgPerson)(cn=%(user)s))``       | third argument of LDAPSearch (filterstr) when searching for users
 LDAP_GROUP_DN                   | AUTH_LDAP_GROUP_SEARCH*                       |      | ''                                                    | first argument of LDAPSearch (base_dn) when searching for groups
 LDAP_GROUP_FILTER               | AUTH_LDAP_GROUP_SEARCH*                       |      | ``(objectClass=groupOfUniqueNames)``                  | third argument of LDAPSearch (filterstr) when searching for groups
-LDAP_GROUP_TYPE                 | AUTH_LDAP_GROUP_TYPE*                         |      | ''                                                    | if set to 'groupOfUniqueNames' then ``AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()``
+LDAP_GROUP_TYPE                 | AUTH_LDAP_GROUP_TYPE*                         |      | ''                                                    | if set to 'groupOfUniqueNames' then ``AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()``, if set to 'posixGroup' then ``AUTH_LDAP_GROUP_TYPE = PosixGroupType()``.
 LDAP_REQUIRE_GROUP              | AUTH_LDAP_REQUIRE_GROUP                       |      | None                                                  |
 LDAP_DENY_GROUP                 | AUTH_LDAP_DENY_GROUP                          |      | None                                                  |
 LDAP_MAP_FIRST_NAME             | AUTH_LDAP_USER_ATTR_MAP['first_name']         |      | ``givenName``                                         |
