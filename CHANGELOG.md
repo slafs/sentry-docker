@@ -1,5 +1,14 @@
 # Changelog
 
+## 2015-05-20
+
+- updated ``requirements.txt`` (``django-redis``, ``hiredis`` and ``django-auth-ldap`` )
+- added support for posixGroup in LDAP auth backend (credit goes to: @grundleborg)
+
+## 2015-03-26
+
+- updated ``Sentry`` to 7.4.3
+
 ## 2015-03-17
 
 - Add support for REMOTE_USER authentication (credit goes to: @abesto)
