@@ -1,8 +1,9 @@
 # Changelog
 
-## 2015-05-19
+## 2015-05-20
 
 - updated ``requirements.txt`` (``django-redis``, ``hiredis`` and ``django-auth-ldap`` )
+- added support for posixGroup in LDAP auth backend (credit goes to: @grundleborg)
 
 ## 2015-03-26
 
