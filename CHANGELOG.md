@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-06-08
+
+- revert django-redis to 3.8.4 due to #26
+
 ## 2015-05-20
 
 - updated ``requirements.txt`` (``django-redis``, ``hiredis`` and ``django-auth-ldap`` )
