@@ -100,6 +100,9 @@ if SENTRY_USE_REDIS_TSDB:
 # You MUST configure the absolute URI root for Sentry:
 SENTRY_URL_PREFIX = config('SENTRY_URL_PREFIX')  # No trailing slash!
 
+SCRIPT_NAME = config('SCRIPT_NAME', '')
+FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', '')
+
 # If you're using a reverse proxy, you should enable the X-Forwarded-Proto
 # and X-Forwarded-Host headers, and uncomment the following settings
 SECURE_PROXY_SSL_HEADER = config('SENTRY_SECURE_PROXY_SSL_HEADER', default=None, cast=lambda x: tuple(x.split(',')) if x else None)
