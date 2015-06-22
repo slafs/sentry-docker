@@ -5,7 +5,7 @@ db:
     image: postgres
 
 sentrycelery: &DEFAULT
-    build: .  # this will use a main Dockerfile in this repo
+    build: ../..  # this will use a main Dockerfile in this repo
     command: "celery worker -B -l INFO"
     links:
         - redis:redis
@@ -25,7 +25,7 @@ sentryweb:
 # so we have to link all the other ones
 # and then they can be build/run automatically
 test:
-    build: tests/simple_services
+    build: .
     links:
         - redis:redis
         - db:postgresdb

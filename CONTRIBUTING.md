@@ -33,10 +33,6 @@ To run the tests you have to install docker-compose:
 Go to [docker-compose](http://docs.docker.com/compose/) page for more info about
 how to install and use Compose.
 
-``docker-compose.yml`` has to be written as if it was run from the main directory
-of this repo (the one that contains ``tests``, ``sentry_docker_conf.py`` etc.).
-This is specially important when writing the ``build`` key.
-
 Then you can run ``./run_tests.sh tests/feature_X``.
 
 You can run all the tests by running ``run_tests.sh`` script
