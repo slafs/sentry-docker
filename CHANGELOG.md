@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-06-22
+
+- updated ``Sentry`` to 7.5.4
+
 ## 2015-06-08
 
 - revert django-redis to 3.8.4 due to #26
