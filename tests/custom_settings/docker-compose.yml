@@ -1,8 +1,8 @@
 sentryweb:
-    build: .  # this will use a main Dockerfile in this repo
+    build: ../..  # this will use a main Dockerfile in this repo
     command: "start"
     volumes:
-        - ./tests/custom_settings/conf:/mycustomconfdir
+        - ./conf:/mycustomconfdir
     environment:
         - SECRET_KEY=123123123
         - SENTRY_URL_PREFIX=http://sentry.domain.com
@@ -13,6 +13,6 @@ sentryweb:
         - "9090"
 
 test:
-    build: tests/custom_settings
+    build: .
     links:
         - sentryweb:sentryweb

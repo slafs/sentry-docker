@@ -23,8 +23,7 @@ def create_team(admin_username, team_name, organization_name=None):
     org, new_org = Organization.objects.get_or_create(name=organization_name,
                                                       defaults={'owner': user})
     team, new = Team.objects.get_or_create(name=team_name,
-                                           defaults={'owner': user,
-                                                     'organization': org})
+                                           defaults={'organization': org})
     return team, new
 
 
