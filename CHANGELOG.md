@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-06-25
+
+- remove ``nydus`` as an explicit requirement (see #28)
+
 ## 2015-06-22
 
 - updated ``Sentry`` to 7.5.4
