@@ -9,6 +9,15 @@ SCRIPTS_DIR=${SENTRY_SCRIPTS_DIR:-/conf}
 # if starting the web worker then try to initialize DB and superuser
 if [ "$1" == "start" ] || [ "$1" == "prepare" ]; then
 
+# check DB health if "SENTRY_DOCKER_DO_DB_CHECK" is set
+if [ -n "$SENTRY_DOCKER_DO_DB_CHECK" ]; then
+    python $SCRIPTS_DIR/check_db_isalive.py 10 3
+    if [ "$?" != "0" ]; then
+        echo "couldn't establish DB connection. exiting..."
+        exit 1
+    fi
+fi
+
 sentry --config=$SENTRY_CONF_FILE upgrade --noinput
 
 /usr/bin/expect << EOF

@@ -16,6 +16,7 @@ sentrycelery: &DEFAULT
         - DATABASE_URL=postgres://postgres:@postgresdb/postgres
         - CELERY_ALWAYS_EAGER=False
         - CACHE_URL=hiredis://redis:6379/2/
+        - SENTRY_DOCKER_DO_DB_CHECK=yes
 
 sentryweb:
     <<: *DEFAULT  # "inherit" from the configuration above

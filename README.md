@@ -266,6 +266,7 @@ SENTRY_USE_X_FORWARDED_HOST     | USE_X_FORWARDED_HOST                          
 SENTRY_ALLOW_ORIGIN             | SENTRY_ALLOW_ORIGIN                           |      | None                                                  | allows JavaScript clients to submit cross-domain error reports. (e.g. ``"http://foo.example"``
 SENTRY_BEACON                   | SENTRY_BEACON                                 | bool | True                                                  | controls sending statistics to https://www.getsentry.com/remote/beacon/
 SENTRY_PUBLIC                   | SENTRY_PUBLIC                                 | bool | False                                                 | Should Sentry make all data publicly accessible? This should only be used if you’re installing Sentry behind your company’s firewall.
+SENTRY_DOCKER_DO_DB_CHECK       |                                               | any  |                                                       | if this variable is set (to any non-empty value) the script (``sentry_run``) will check if DB is accessible before running migrations/service - helps to avoid nasty race conditions
 
 
 ## Extending the image ##
