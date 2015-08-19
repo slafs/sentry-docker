@@ -4,6 +4,7 @@
 
 - fix migration issue (https://github.com/getsentry/sentry/issues/1648)
 - allow for a simple database accessibility check (via ``SENTRY_DOCKER_DO_DB_CHECK`` env var)
+- updated ``Sentry`` to 7.5.6
 
 ## 2015-06-25
 
