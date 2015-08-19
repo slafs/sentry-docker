@@ -7,6 +7,9 @@ dj-database-url==0.3.0
 django-redis==3.8.4
 hiredis==0.2.0
 
+# temporary fix for https://github.com/getsentry/sentry/issues/1648
+django-jsonfield>=0.9.13,<0.9.14
+
 # sentry
 sentry[postgres]==7.5.4
 
