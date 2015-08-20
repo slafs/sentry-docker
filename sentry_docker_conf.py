@@ -186,7 +186,7 @@ SENTRY_USE_LDAP = config('SENTRY_USE_LDAP', default=False, cast=bool)
 
 if SENTRY_USE_LDAP:
     import ldap
-    from django_auth_ldap.config import LDAPSearch, GroupOfUniqueNamesType, PosixGroupType
+    from django_auth_ldap.config import LDAPSearch, GroupOfUniqueNamesType, PosixGroupType, NestedGroupOfNamesType
 
     AUTH_LDAP_SERVER_URI = config('LDAP_SERVER', default='ldap://localhost')
 
@@ -209,6 +209,8 @@ if SENTRY_USE_LDAP:
         AUTH_LDAP_GROUP_TYPE = GroupOfUniqueNamesType()
     elif config('LDAP_GROUP_TYPE', default='') == 'posixGroup':
         AUTH_LDAP_GROUP_TYPE = PosixGroupType()
+    elif config('LDAP_GROUP_TYPE', default='') == 'nestedGroupOfNames':
+        AUTH_LDAP_GROUP_TYPE = NestedGroupOfNamesType()
 
     AUTH_LDAP_REQUIRE_GROUP = config('LDAP_REQUIRE_GROUP', default=None)
     AUTH_LDAP_DENY_GROUP = config('LDAP_DENY_GROUP', default=None)
@@ -221,11 +223,13 @@ if SENTRY_USE_LDAP:
 
     ldap_is_active    = config('LDAP_GROUP_ACTIVE', default='')
     ldap_is_superuser = config('LDAP_GROUP_SUPERUSER', default='')
+    ldap_is_staff     = config('LDAP_GROUP_STAFF', default='')
 
-    if ldap_is_active or ldap_is_superuser:
+    if ldap_is_active or ldap_is_superuser or ldap_is_staff:
         AUTH_LDAP_USER_FLAGS_BY_GROUP = {
             'is_active': ldap_is_active,
             'is_superuser': ldap_is_superuser,
+            'is_staff': ldap_is_staff,
         }
 
     AUTH_LDAP_FIND_GROUP_PERMS = config('LDAP_FIND_GROUP_PERMS', default=False, cast=bool)
