@@ -1,6 +1,6 @@
 # env config
 python-decouple==2.3
-django-cache-url==0.8.0
+django-cache-url==1.0.0
 dj-database-url==0.3.0
 
 # cache with redis

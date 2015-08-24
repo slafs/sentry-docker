@@ -15,7 +15,7 @@ sentrycelery: &DEFAULT
         - SENTRY_URL_PREFIX=http://sentry.slafs.com
         - DATABASE_URL=postgres://postgres:@postgresdb/postgres
         - CELERY_ALWAYS_EAGER=False
-        - CACHE_URL=hiredis://redis:6379/2/
+        - CACHE_URL=hiredis://redis:6379/2
         - SENTRY_DOCKER_DO_DB_CHECK=yes
 
 sentryweb:

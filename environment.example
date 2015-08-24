@@ -18,7 +18,7 @@ SECRET_KEY=
 #DATABASE_URL=postgres://postgres:@postgres/postgres
 
 ## cache
-#CACHE_URL=hiredis://redis:6379/2/
+#CACHE_URL=hiredis://redis:6379/2
 
 ## redis buffers
 #SENTRY_USE_REDIS_BUFFERS=True
