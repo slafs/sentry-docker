@@ -1,5 +1,10 @@
 # Changelog
 
+## 2015-08-20
+
+- Added `nestedGroupOfNames` `LDAP_GROUP_TYPE`
+- Make use of `LDAP_GROUP_STAFF`
+
 ## 2015-08-19
 
 - fix migration issue (https://github.com/getsentry/sentry/issues/1648)
