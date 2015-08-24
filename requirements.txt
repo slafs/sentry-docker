@@ -4,7 +4,7 @@ django-cache-url==1.0.0
 dj-database-url==0.3.0
 
 # cache with redis
-django-redis==3.8.4
+django-redis==4.2.0
 hiredis==0.2.0
 
 # temporary fix for https://github.com/getsentry/sentry/issues/1648
