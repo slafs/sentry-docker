@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-08-24
+
+- add `.dockerignore` file
+
 ## 2015-08-20
 
 - Added `nestedGroupOfNames` `LDAP_GROUP_TYPE`
