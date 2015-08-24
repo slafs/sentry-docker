@@ -3,6 +3,8 @@
 ## 2015-08-24
 
 - add `.dockerignore` file
+- updated ``django-cache-url`` to 1.0.0 (watch out for trailing `/`)
+- updated ``django-redis`` to 4.2.0
 
 ## 2015-08-20
 
