@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-08-26
+
+- updated ``Sentry`` to 7.6.2
+
 ## 2015-08-24
 
 - add `.dockerignore` file
