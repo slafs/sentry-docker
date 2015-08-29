@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-08-29
+
+- updated ``Sentry`` to 7.7.0 and dropped ``django-json`` fix
+
 ## 2015-08-26
 
 - updated ``Sentry`` to 7.6.2
