@@ -1,6 +1,6 @@
 # This file is just Python, with a touch of Django which means you
 # you can inherit and tweak settings to your hearts content.
-from urlparse import urlparse
+from urlparse import urlsplit
 import os.path
 
 from decouple import config
@@ -184,7 +184,7 @@ BITBUCKET_CONSUMER_SECRET = config('BITBUCKET_CONSUMER_SECRET', default='')
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
     cast=lambda v: [s.strip() for s in v.split(',')],
-    default=urlparse(SENTRY_URL_PREFIX).netloc,
+    default=urlsplit(SENTRY_URL_PREFIX).netloc,
 )
 
 LOGGING['disable_existing_loggers'] = False
