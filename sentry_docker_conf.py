@@ -1,12 +1,14 @@
 # This file is just Python, with a touch of Django which means you
 # you can inherit and tweak settings to your hearts content.
-from sentry.conf.server import *  # noqa
+from urlparse import urlparse
 import os.path
 
 from decouple import config
 import dj_database_url
 import django_cache_url
 import functools
+
+from sentry.conf.server import *  # noqa
 
 CONF_ROOT = os.path.dirname(__file__)
 DATA_DIR = config('SENTRY_DATA_DIR', default='/data')
@@ -123,9 +125,16 @@ SENTRY_ALLOW_ORIGIN = config('SENTRY_ALLOW_ORIGIN', default=None)
 #################
 
 # For more information check Django's documentation:
-#  https://docs.djangoproject.com/en/1.3/topics/email/?from=olddocs#e-mail-backends
+# https://docs.djangoproject.com/en/1.6/topics/email/#email-backends
 
-EMAIL_BACKEND = config('SENTRY_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+# Mandrillapp.com email backend will be pre-selected only if the Mandrill key
+# is present and `$SENTRY_EMAIL_BACKEND` is unset. If `$SENTRY_EMAIL_BACKEND`
+# is set, it will be used regardless of the value of `$MANDRILL_API_KEY`
+MANDRILL_API_KEY = config('MANDRILL_API_KEY', default=None)
+if MANDRILL_API_KEY and not config('SENTRY_EMAIL_BACKEND', default=None):
+    EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+else:
+    EMAIL_BACKEND = config('SENTRY_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 
 EMAIL_HOST = config('SENTRY_EMAIL_HOST', default='localhost')
 EMAIL_HOST_PASSWORD = config('SENTRY_EMAIL_HOST_PASSWORD', default='')
@@ -172,7 +181,12 @@ BITBUCKET_CONSUMER_KEY = config('BITBUCKET_CONSUMER_KEY', default='')
 BITBUCKET_CONSUMER_SECRET = config('BITBUCKET_CONSUMER_SECRET', default='')
 
 # custom settings
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    cast=lambda v: [s.strip() for s in v.split(',')],
+    default=urlparse(SENTRY_URL_PREFIX).netloc,
+)
+
 LOGGING['disable_existing_loggers'] = False
 
 SENTRY_BEACON = config('SENTRY_BEACON', default=True, cast=bool)
@@ -272,3 +286,10 @@ if SENTRY_USE_REMOTE_USER:
         MIDDLEWARE_CLASSES += ('sentry_config.LAZY_CUSTOM_REMOTE_USER_MIDDLEWARE',)
     else:
         MIDDLEWARE_CLASSES += ('django.contrib.auth.middleware.RemoteUserMiddleware',)
+
+
+# Pickle is used by default, use JSON since it's more secure;
+# Most Docker containers run everything as root
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']

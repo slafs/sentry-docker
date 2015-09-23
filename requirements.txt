@@ -1,5 +1,5 @@
 # env config
-python-decouple==2.3
+python-decouple==3.0
 django-cache-url==1.0.0
 dj-database-url==0.3.0
 
@@ -13,3 +13,5 @@ sentry[postgres]==7.7.0
 # ldap user store
 django-auth-ldap==1.2.6
 
+# Mandrillapp.com integration
+djrill==1.4.0
