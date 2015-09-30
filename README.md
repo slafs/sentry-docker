@@ -93,7 +93,7 @@ SENTRY_ADMIN_EMAIL=slafs@foo.com
 
 See [django docs](https://docs.djangoproject.com/en/1.5/ref/django-admin/#createsuperuser) for details about ``createsuperuser`` command.
 
-The default adminstrator username is ``admin`` with password ``admin`` (and ``root@localhost`` as email adress).
+The default administrator username is ``admin`` with password ``admin`` (and ``root@localhost`` as email adress).
 
 ### Postgres
 
