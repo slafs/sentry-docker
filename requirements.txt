@@ -5,10 +5,9 @@ dj-database-url==0.3.0
 
 # cache with redis
 django-redis==4.2.0
-hiredis==0.2.0
+hiredis>=0.1.0,<0.2.0
 
-http://github.com/getsentry/sentry/tarball/master#egg=sentry[postgres]
+-e git+https://github.com/getsentry/sentry.git#egg=sentry[postgres]
 
 # ldap user store
 django-auth-ldap==1.2.6
-
