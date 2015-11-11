@@ -12,6 +12,7 @@ import sentry
 from sentry.models import Team, Project, ProjectKey, User, Organization
 from sentry.web.frontend.project_settings import OriginsField
 from django.forms import ValidationError
+from django.db.utils import IntegrityError
 
 SENTRY_VERSION = tuple(map(lambda x: int(x) if x.isdigit() else x, sentry.get_version().split('.')))
 
@@ -25,6 +26,16 @@ def create_team(admin_username, team_name, organization_name=None):
     team, new = Team.objects.get_or_create(name=team_name,
                                            defaults={'organization': org})
     return team, new
+
+
+def create_admin(username, email, password):
+    try:
+        admin = User.objects.create_superuser(username=username, email=email, password=password)
+    except IntegrityError:
+        print('Superuser "{0}" is already present.'.format(username))
+    else:
+        print('Superuser "{0}" created successfully.'.format(username))
+        return admin
 
 
 def create_project(team_name, project_name, platform='python'):
@@ -91,6 +102,10 @@ def main():
     to modify allowed domains for a project pass a space separated list like this::
 
         python create_team_or_project.py origins teamname projectname 'example.com *.example.com'
+
+    to create a superuser::
+
+        python create_team_or_project.py admin username email@foo.bar password
     '''
     command = sys.argv[1]
     if command == 'team':
@@ -109,12 +124,16 @@ def main():
             print_dsn(project)
         elif proj_created is True:
             print_dsn(project)
-    elif command in ('origins'):
+    elif command in ('origins',):
         team_name = sys.argv[2]
         project_name = sys.argv[3]
         origins = sys.argv[4]
         update_origins(team_name, project_name, origins)
-
+    elif command in ('admin',):
+        username = sys.argv[2]
+        email = sys.argv[3]
+        password = sys.argv[4]
+        create_admin(username, email, password)
 
 if __name__ == '__main__':
     main()
