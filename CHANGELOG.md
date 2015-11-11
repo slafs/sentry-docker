@@ -1,5 +1,12 @@
 # Changelog
 
+## 2015-11-11
+
+- updated ``Sentry`` to 7.7.1
+- updated ``django-auth-ldap`` to 1.2.7
+- updated ``django-redis`` to 4.3.0
+- updated ``python-decouple`` to 3.0
+
 ## 2015-08-29
 
 - updated ``Sentry`` to 7.7.0 and dropped ``django-json`` fix
