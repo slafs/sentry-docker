@@ -9,27 +9,19 @@ SCRIPTS_DIR=${SENTRY_SCRIPTS_DIR:-/conf}
 # if starting the web worker then try to initialize DB and superuser
 if [ "$1" == "start" ] || [ "$1" == "prepare" ]; then
 
-# check DB health if "SENTRY_DOCKER_DO_DB_CHECK" is set
-if [ -n "$SENTRY_DOCKER_DO_DB_CHECK" ]; then
-    python $SCRIPTS_DIR/check_db_isalive.py 10 3
-    if [ "$?" != "0" ]; then
-        echo "couldn't establish DB connection. exiting..."
-        exit 1
+    # check DB health if "SENTRY_DOCKER_DO_DB_CHECK" is set
+    if [ -n "$SENTRY_DOCKER_DO_DB_CHECK" ]; then
+        python $SCRIPTS_DIR/check_db_isalive.py 10 3
+        if [ "$?" != "0" ]; then
+            echo "couldn't establish DB connection. exiting..."
+            exit 1
+        fi
     fi
-fi
 
-sentry --config=$SENTRY_CONF_FILE upgrade --noinput
+    sentry --config=$SENTRY_CONF_FILE upgrade --noinput
 
-/usr/bin/expect << EOF
-
-spawn sentry --config=$SENTRY_CONF_FILE createsuperuser --username=${SENTRY_ADMIN_USERNAME:-admin} --email=${SENTRY_ADMIN_EMAIL:-"root@localhost"}
-
-expect "Password: "
-send "${SENTRY_ADMIN_PASSWORD:-admin}\r"
-expect "Password (again): "
-send "${SENTRY_ADMIN_PASSWORD:-admin}\r"
-expect "Superuser created successfully."
-EOF
+    # create superuser
+    python $SCRIPTS_DIR/create_team_or_project.py admin "${SENTRY_ADMIN_USERNAME:-admin}" "${SENTRY_ADMIN_EMAIL:-root@localhost}" "${SENTRY_ADMIN_PASSWORD:-admin}"
 
     if [ -n "$SENTRY_INITIAL_TEAM" ]; then
         python $SCRIPTS_DIR/create_team_or_project.py team ${SENTRY_ADMIN_USERNAME:-admin} $SENTRY_INITIAL_TEAM

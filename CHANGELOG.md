@@ -7,6 +7,7 @@
 - updated ``django-redis`` to 4.3.0
 - updated ``python-decouple`` to 3.0
 - fixed building dev version (8.0.0.dev0) (credit goes to: @yurtaev)
+- creating superuser via python script
 
 ## 2015-08-29
 
