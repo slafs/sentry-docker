@@ -1,5 +1,10 @@
 # Changelog
 
+## 2015-11-16
+
+- updated ``Sentry`` to 7.7.4
+- merged forgotten changes to dev
+
 ## 2015-11-11
 
 - updated ``Sentry`` to 7.7.1
