@@ -1,7 +1,7 @@
 Sentry in Docker
 ==================
 
-## Warning about build tags ##
+## Warning about build tags
 
 Latest changes introduced some new build tags:
 
@@ -26,7 +26,7 @@ This is my approach for running [Sentry](https://getsentry.com) inside [Docker](
 Almost everything here is configurable via environment variables (including DATABASES and CACHES settings).
 It can be easily configured to run with redis (cache, buffers and celery broker), postgres database, LDAP and REMOTE_USER authentication backends.
 
-## Quickstart ##
+## Quickstart
 
 to run a Sentry instance with default settings (with sqlite, locmem cache and no celery) run:
 
@@ -40,7 +40,7 @@ is mapped to your docker host) and login with default credentials
 
 Your sqlite database file and gunicorn logs are available in ``/tmp/sentry`` directory.
 
-## Contributing ##
+## Contributing
 
 Try not to fork this repo just to create your own Docker image with some
 minor tweak. Please open an [issue on GitHub](https://github.com/slafs/sentry-docker/issues)
@@ -52,7 +52,7 @@ You can even write a test case for your feature ;). See
 Also feel free to give [feedback and comments](https://github.com/slafs/sentry-docker/issues)
 about this image in general.
 
-## Advanced usage ##
+## Advanced usage
 
 Copy the file with environment variables ``environment.example`` e.g ``cp environment.example environment``
 and after tweaking some values run sentry like this
@@ -176,21 +176,21 @@ defined by ``SENTRY_REDIS_HOST`` and ``SENTRY_REDIS_PORT``. Similarly
 to configuring buffers, you can set ``SENTRY_REDIS_TSDBS`` to a list
 of Redis servers: ``SENTRY_REDIS_TSDBS=redis1:6379,redis2:6380``
 
-###Email
+### Email
 
 You can configure all [email settings](http://sentry.readthedocs.org/en/latest/quickstart/index.html#configure-outbound-mail)
 by environment variables with ``SENTRY_`` prefix.
 You have to also change an email backend and set it
 to ``SENTRY_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`` or something similar.
 
-###LDAP
+### LDAP
 With this image You should be able to easily configure LDAP authentication for your Sentry instance.
 To enable it add ``SENTRY_USE_LDAP=True`` to your ``environment`` file.
 Then set the needed options by adding env variables with ``LDAP_``
 prefix (see the table below). LDAP authentication backend is provided by
 [django-auth-ldap](https://pythonhosted.org/django-auth-ldap/).
 
-###REMOTE_USER
+### REMOTE_USER
 To enable authentication via REMOTE_USER, add ``SENTRY_USE_REMOTE_USER=True`` to your ``environment`` file.
 See the ``AUTH_REMOTE_USER_*`` env variables below for further configuration.
 
