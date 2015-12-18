@@ -103,3 +103,6 @@ SECRET_KEY=
 
 ## allows JavaScript clients to submit cross-domain error reports.
 #SENTRY_ALLOW_ORIGIN="http://foo.example"
+
+## control python warnings. See https://docs.python.org/2/library/warnings.html for available values
+#PYTHONWARNINGS=ignore
