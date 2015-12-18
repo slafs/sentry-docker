@@ -1,5 +1,11 @@
 # Changelog
 
+## 2015-12-18
+
+- added `CELERY_RESULT_SERIALIZER`, `CELERY_TASK_SERIALIZER`
+  and `CELERY_ACCEPT_CONTENT` configs to avoid `C_FORCE_ROOT` env var
+  (default values support `pickle` for backwards compatibility).
+
 ## 2015-11-16
 
 - updated ``Sentry`` to 7.7.4
