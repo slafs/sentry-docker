@@ -158,6 +158,14 @@ You can also set a different ``BROKER_URL`` via environment file by adding this:
 
 You can run as many celery worker containers as you want but remember that only one of them should be run with ``-B`` option.
 
+If you're using default values for `CELERY_RESULT_SERIALIZER`, `CELERY_TASK_SERIALIZER`
+and `CELERY_ACCEPT_CONTENT` (default values support `pickle`)
+you have to set `C_FORCE_ROOT` env var (to say `1`)
+to be able to run celery as a `root` user.
+You can avoid this by setting those three to `json`.
+Refer to [Celery's serializer docs](docs.celeryproject.org/en/latest/userguide/security.html#serializers)
+for more info about security implications of using `pickle` as a task serialization format.
+
 #### Time-series storage with redis
 
 To have [time-series data](http://sentry.readthedocs.org/en/latest/tsdb/index.html) you must add
@@ -189,7 +197,8 @@ See the ``AUTH_REMOTE_USER_*`` env variables below for further configuration.
 ## Available environment variables
 
 Refer to [sentry documentation](http://sentry.readthedocs.org/en/latest/config/index.html),
-[django documentation](https://docs.djangoproject.com/en/1.5/ref/settings/)
+[django documentation](https://docs.djangoproject.com/en/1.6/ref/settings/),
+[celery documentation](http://docs.celeryproject.org/en/latest/)
 and [django-auth-ldap documentation](https://pythonhosted.org/django-auth-ldap/reference.html)
 for the meaning of each setting.
 
@@ -201,6 +210,9 @@ DATABASE_URL                    | DATABASES                                     
 CACHE_URL                       | CACHES                                        |      | locmem://                                             |
 CELERY_ALWAYS_EAGER             | CELERY_ALWAYS_EAGER                           | bool | True                                                  |
 SENTRY_BROKER_URL               | BROKER_URL                                    |      | ``redis://<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>/1`` |
+CELERY_RESULT_SERIALIZER        | CELERY_RESULT_SERIALIZER                      |      | ``pickle``                                            | You may want change it to ``json``. See http://docs.celeryproject.org/en/stable/configuration.html#celery-result-serializer
+CELERY_TASK_SERIALIZER          | CELERY_TASK_SERIALIZER                        |      | ``pickle``                                            | You may want change it to ``json``. See http://docs.celeryproject.org/en/stable/configuration.html#celery-task-serializer
+CELERY_ACCEPT_CONTENT           | CELERY_ACCEPT_CONTENT                         | list | ``pickle,json``                                       | Comma separated values. You may want change it to ``json``. See http://docs.celeryproject.org/en/stable/configuration.html#celery-accept-content
 SENTRY_REDIS_HOST               |                                               |      | redis                                                 |
 SENTRY_REDIS_PORT               |                                               | int  | 6379                                                  |
 SENTRY_WEB_HOST                 | SENTRY_WEB_HOST                               |      | 0.0.0.0                                               |

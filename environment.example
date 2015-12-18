@@ -10,6 +10,12 @@ SECRET_KEY=
 ## celery
 #CELERY_ALWAYS_EAGER=False
 #SENTRY_BROKER_URL=redis://redis:6379/1
+#CELERY_RESULT_SERIALIZER=json
+#CELERY_TASK_SERIALIZER=json
+#CELERY_ACCEPT_CONTENT=json
+
+# if you're accepting pickled tasks (the default) you should enable this
+#C_FORCE_ROOT=1
 
 ## make everything "public" (readable by all logged in users)
 #SENTRY_PUBLIC=True

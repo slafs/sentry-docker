@@ -60,6 +60,10 @@ DEFAULT_BROKER_URL = 'redis://{0}:{1}/1'.format(REDIS_HOST, REDIS_PORT)
 
 BROKER_URL = config('SENTRY_BROKER_URL', default=DEFAULT_BROKER_URL)
 
+CELERY_RESULT_SERIALIZER = config('CELERY_RESULT_SERIALIZER', default='pickle')
+CELERY_TASK_SERIALIZER = config('CELERY_TASK_SERIALIZER', default='pickle')
+CELERY_ACCEPT_CONTENT = config('CELERY_ACCEPT_CONTENT', default='pickle,json', cast=lambda x: x.split(','))
+
 ####################
 # Update Buffers ##
 ####################
