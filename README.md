@@ -131,6 +131,7 @@ If you want to use a different container alias for redis you should add ```SENTR
 #### Cache with redis
 
 To use a redis cache backend add ``CACHE_URL=hiredis://redis:6379/2``
+(make sure you won't have a trailing `/` in this setting)
 to environment file (where ``redis`` is the alias of your linked redis container).
 See [django-cache-url](https://github.com/ghickman/django-cache-url) docs for available formats.
 
