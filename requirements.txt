@@ -8,6 +8,9 @@ django-redis==4.3.0
 
 -e git+https://github.com/getsentry/sentry.git#egg=sentry[postgres]
 
+# quickfix for issue #44
+kombu==3.0.30
+
 # ldap user store
 django-auth-ldap==1.2.7
 
