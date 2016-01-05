@@ -219,7 +219,7 @@ SENTRY_REDIS_PORT               |                                               
 SENTRY_WEB_HOST                 | SENTRY_WEB_HOST                               |      | 0.0.0.0                                               |
 SENTRY_WEB_PORT                 | SENTRY_WEB_PORT                               | int  | 9000                                                  |
 SENTRY_WORKERS                  | SENTRY_WEB_OPTIONS['workers']                 | int  | 3                                                     | the number of gunicorn workers
-SENTRY_USE_REDIS_BUFFER         |                                               | bool | False                                                 |
+SENTRY_USE_REDIS_BUFFERS        |                                               | bool | False                                                 |
 SENTRY_REDIS_BUFFERS            | SENTRY_REDIS_OPTIONS['hosts']*                | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
 SENTRY_USE_REDIS_TSDB           |                                               | bool | False                                                 |
 SENTRY_REDIS_TSDBS              | SENTRY_TSDB_OPTIONS['hosts']*                 | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
