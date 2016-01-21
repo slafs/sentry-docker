@@ -137,14 +137,14 @@ See [django-cache-url](https://github.com/ghickman/django-cache-url) docs for av
 
 #### Sentry buffers with redis
 
-To use [sentry update buffers](http://sentry.readthedocs.org/en/latest/buffer/)
+To use [sentry update buffers](https://docs.getsentry.com/on-premise/server/buffer/)
 with redis you must add ``SENTRY_USE_REDIS_BUFFERS=True`` to environment file.
 
 If you have many redis containers/hosts you can set a list of those hosts
 in ``SENTRY_REDIS_BUFFERS`` variable so they can be used by sentry.
 Like this: ``SENTRY_REDIS_BUFFERS=redis1:6380,redis2:6381``.
 
-See [sentry docs](http://sentry.readthedocs.org/en/latest/buffer/#the-redis-backend) for details about redis buffer.
+See [sentry docs](https://docs.getsentry.com/on-premise/server/buffer/#redis) for details about redis buffer.
 
 #### Celery with redis (and postgres)
 
@@ -169,7 +169,7 @@ for more info about security implications of using `pickle` as a task serializat
 
 #### Time-series storage with redis
 
-To have [time-series data](http://sentry.readthedocs.org/en/latest/tsdb/index.html) you must add
+To have [time-series data](https://docs.getsentry.com/on-premise/server/tsdb/) you must add
 ``SENTRY_USE_REDIS_TSDB=True`` to the environment file.
 
 By default Redis time-series storage will use the Redis connection
@@ -179,7 +179,7 @@ of Redis servers: ``SENTRY_REDIS_TSDBS=redis1:6379,redis2:6380``
 
 ### Email
 
-You can configure all [email settings](http://sentry.readthedocs.org/en/latest/quickstart/index.html#configure-outbound-mail)
+You can configure all [email settings](https://docs.getsentry.com/on-premise/server/config/#smtp-server)
 by environment variables with ``SENTRY_`` prefix.
 You have to also change an email backend and set it
 to ``SENTRY_EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend`` or something similar.
@@ -197,7 +197,7 @@ See the ``AUTH_REMOTE_USER_*`` env variables below for further configuration.
 
 ## Available environment variables
 
-Refer to [sentry documentation](http://sentry.readthedocs.org/en/latest/config/index.html),
+Refer to [sentry documentation](https://docs.getsentry.com/on-premise/server/config/),
 [django documentation](https://docs.djangoproject.com/en/1.6/ref/settings/),
 [celery documentation](http://docs.celeryproject.org/en/latest/)
 and [django-auth-ldap documentation](https://pythonhosted.org/django-auth-ldap/reference.html)
