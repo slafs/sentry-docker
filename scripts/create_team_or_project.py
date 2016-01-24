@@ -21,8 +21,9 @@ def create_team(admin_username, team_name, organization_name=None):
     user = User.objects.get(username=admin_username)
     if organization_name is None:
         organization_name = team_name
-    org, new_org = Organization.objects.get_or_create(name=organization_name,
-                                                      defaults={'owner': user})
+    org, new_org = Organization.objects.get_or_create(name=organization_name)
+    org_member, member_created = org.members.through.objects.get_or_create(organization=org, user=user,
+                                                                           defaults={'role': 'owner'})
     team, new = Team.objects.get_or_create(name=team_name,
                                            defaults={'organization': org})
     return team, new
