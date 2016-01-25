@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM python:2.7.10
 
 MAINTAINER Sławek Ehlert <slafs@op.pl>
 
