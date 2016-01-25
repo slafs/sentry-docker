@@ -9,7 +9,7 @@ configure()
 
 # Do something crazy
 import sentry
-from sentry.models import Team, Project, ProjectKey, User, Organization
+from sentry.models import Team, Project, ProjectKey, User, Organization, OrganizationMember
 from sentry.web.frontend.project_settings import OriginsField
 from django.forms import ValidationError
 from django.db.utils import IntegrityError
@@ -21,8 +21,12 @@ def create_team(admin_username, team_name, organization_name=None):
     user = User.objects.get(username=admin_username)
     if organization_name is None:
         organization_name = team_name
-    org, new_org = Organization.objects.get_or_create(name=organization_name,
-                                                      defaults={'owner': user})
+    org, new_org = Organization.objects.get_or_create(name=organization_name)
+    org_owner, _ = OrganizationMember.objects.get_or_create(user=user,
+                                                            organization=org,
+                                                            defaults={
+                                                                'role': 'owner',
+                                                            })
     team, new = Team.objects.get_or_create(name=team_name,
                                            defaults={'organization': org})
     return team, new
@@ -38,9 +42,9 @@ def create_admin(username, email, password):
         return admin
 
 
-def create_project(team_name, project_name, platform='python'):
+def create_project(team_name, project_name, platform='python'): # 'platform' is left here because of possible backwards compatibility needs
     team = Team.objects.get(name=team_name)
-    defaults = {'platform': platform, 'organization': team.organization}
+    defaults = {'organization': team.organization}
     project, new = Project.objects.get_or_create(name=project_name, team=team,
                                                  defaults=defaults)
 

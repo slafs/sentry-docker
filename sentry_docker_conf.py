@@ -45,6 +45,13 @@ def nydus_config(from_env_var):
         'hosts': _redis_hosts
     }
 
+############################
+# General Sentry options ##
+############################
+SENTRY_OPTIONS = {
+    'system.url-prefix': config('SENTRY_URL_PREFIX'),
+    'system.admin-email': config('SENTRY_ADMIN_EMAIL', default='root@localhost'),
+}
 
 ###########
 # Queue ##
@@ -100,9 +107,6 @@ if SENTRY_USE_REDIS_TSDB:
 ################
 # Web Server ##
 ################
-
-# You MUST configure the absolute URI root for Sentry:
-SENTRY_URL_PREFIX = config('SENTRY_URL_PREFIX')  # No trailing slash!
 
 # If you're using a reverse proxy, you should enable the X-Forwarded-Proto
 # and X-Forwarded-Host headers, and uncomment the following settings
@@ -177,10 +181,10 @@ BITBUCKET_CONSUMER_SECRET = config('BITBUCKET_CONSUMER_SECRET', default='')
 
 # custom settings
 ALLOWED_HOSTS = ['*']
+INTERNAL_IPS = config('INTERNAL_IPS', default='') # TODO: Milan check of dit werkt
 LOGGING['disable_existing_loggers'] = False
 
 SENTRY_BEACON = config('SENTRY_BEACON', default=True, cast=bool)
-SENTRY_ADMIN_EMAIL = config('SENTRY_ADMIN_EMAIL', default='root@localhost')
 
 ####################
 # LDAP settings ##
