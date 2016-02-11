@@ -17,6 +17,10 @@ from django.db.utils import IntegrityError
 SENTRY_VERSION = tuple(map(lambda x: int(x) if x.isdigit() else x, sentry.get_version().split('.')))
 
 
+def mark_as_configured():
+    sentry.options.set('sentry:version-configured', sentry.get_version())
+
+
 def create_team(admin_username, team_name, organization_name=None):
     user = User.objects.get(username=admin_username)
     if organization_name is None:
@@ -37,6 +41,8 @@ def create_admin(username, email, password):
     else:
         print('Superuser "{0}" created successfully.'.format(username))
         return admin
+    finally:
+        mark_as_configured()
 
 
 def create_project(team_name, project_name):
