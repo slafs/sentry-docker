@@ -39,7 +39,7 @@ You can visit now http://sentry.mydomain.com (assuming ``sentry.mydomain.com``
 is mapped to your docker host) and login with default credentials
 (username ``admin`` and password ``admin``) and create your first team and project.
 
-Your sqlite database file and gunicorn logs are available in ``/tmp/sentry`` directory.
+Your sqlite database file and web workers logs are available in ``/tmp/sentry`` directory.
 
 ## Contributing
 
@@ -219,7 +219,7 @@ SENTRY_REDIS_HOST               |                                               
 SENTRY_REDIS_PORT               |                                               | int  | 6379                                                  |
 SENTRY_WEB_HOST                 | SENTRY_WEB_HOST                               |      | 0.0.0.0                                               |
 SENTRY_WEB_PORT                 | SENTRY_WEB_PORT                               | int  | 9000                                                  |
-SENTRY_WORKERS                  | SENTRY_WEB_OPTIONS['workers']                 | int  | 3                                                     | the number of gunicorn workers
+SENTRY_WORKERS                  | SENTRY_WEB_OPTIONS['workers']                 | int  | 3                                                     | the number of sentry web workers
 SENTRY_USE_REDIS_BUFFERS        |                                               | bool | False                                                 |
 SENTRY_REDIS_BUFFERS            | SENTRY_REDIS_OPTIONS['hosts']*                | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
 SENTRY_USE_REDIS_TSDB           |                                               | bool | False                                                 |
