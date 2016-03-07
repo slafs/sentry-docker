@@ -1,5 +1,9 @@
 # Changelog
 
+## 2016-03-07
+
+- Upgraded to Sentry ``8.0``
+
 ## 2015-12-18
 
 - added `CELERY_RESULT_SERIALIZER`, `CELERY_TASK_SERIALIZER`
