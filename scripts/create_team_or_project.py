@@ -17,12 +17,17 @@ from django.db.utils import IntegrityError
 SENTRY_VERSION = tuple(map(lambda x: int(x) if x.isdigit() else x, sentry.get_version().split('.')))
 
 
+def mark_as_configured():
+    sentry.options.set('sentry:version-configured', sentry.get_version())
+
+
 def create_team(admin_username, team_name, organization_name=None):
     user = User.objects.get(username=admin_username)
     if organization_name is None:
         organization_name = team_name
-    org, new_org = Organization.objects.get_or_create(name=organization_name,
-                                                      defaults={'owner': user})
+    org, new_org = Organization.objects.get_or_create(name=organization_name)
+    org_member, member_created = org.members.through.objects.get_or_create(organization=org, user=user,
+                                                                           defaults={'role': 'owner'})
     team, new = Team.objects.get_or_create(name=team_name,
                                            defaults={'organization': org})
     return team, new
@@ -36,11 +41,13 @@ def create_admin(username, email, password):
     else:
         print('Superuser "{0}" created successfully.'.format(username))
         return admin
+    finally:
+        mark_as_configured()
 
 
-def create_project(team_name, project_name, platform='python'):
+def create_project(team_name, project_name):
     team = Team.objects.get(name=team_name)
-    defaults = {'platform': platform, 'organization': team.organization}
+    defaults = {'organization': team.organization}
     project, new = Project.objects.get_or_create(name=project_name, team=team,
                                                  defaults=defaults)
 
@@ -115,8 +122,7 @@ def main():
     elif command in ('project', 'key'):
         team_name = sys.argv[2]
         project_name = sys.argv[3]
-        platform = sys.argv[4]
-        project, proj_created = create_project(team_name, project_name, platform)
+        project, proj_created = create_project(team_name, project_name)
 
         if command == 'key':
             key = sys.argv[4]
