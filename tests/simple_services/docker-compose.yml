@@ -6,7 +6,7 @@ db:
 
 sentrycelery: &DEFAULT
     build: ../..  # this will use a main Dockerfile in this repo
-    command: "celery worker -B -l INFO"
+    command: "celery worker -l INFO"
     links:
         - redis:redis
         - db:postgresdb
@@ -17,6 +17,10 @@ sentrycelery: &DEFAULT
         - CELERY_ALWAYS_EAGER=False
         - CACHE_URL=hiredis://redis:6379/2
         - SENTRY_DOCKER_DO_DB_CHECK=yes
+
+sentrycelerybeat:
+    <<: *DEFAULT  # "inherit" from the configuration above
+    command: "celery beat"
 
 sentryweb:
     <<: *DEFAULT  # "inherit" from the configuration above
@@ -32,3 +36,4 @@ test:
         - db:postgresdb
         - sentryweb:sentryweb
         - sentrycelery:sentrycelery
+        - sentrycelerybeat:sentrycelerybeat

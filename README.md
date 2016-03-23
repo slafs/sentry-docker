@@ -152,13 +152,16 @@ See [sentry docs](https://docs.getsentry.com/on-premise/server/buffer/#redis) fo
 To use Celery in sentry you must add ``CELERY_ALWAYS_EAGER=False`` to your environment file and run a celery worker like this:
 
 ```
-docker run -d --name=sentry_celery_worker --link=redis_container:redis --link=postgres_container:postgresdb --volume=/tmp/sentry:/data --env-file=environment slafs/sentry celery worker -B
+docker run -d --name=sentry_celery_worker --link=redis_container:redis --link=postgres_container:postgresdb --volume=/tmp/sentry:/data --env-file=environment slafs/sentry celery worker
 ```
+
+and then run a similar command for `beat` process
+(just change `worker` to `beat`).
 
 You can also set a different ``BROKER_URL`` via environment file by adding this:
 ``SENTRY_BROKER_URL=redis://otherredishost:6379/1``
 
-You can run as many celery worker containers as you want but remember that only one of them should be run with ``-B`` option.
+You can run as many celery `worker` containers as you want but remember that you should run only one `beat` container.
 
 If you're using default values for `CELERY_RESULT_SERIALIZER`, `CELERY_TASK_SERIALIZER`
 and `CELERY_ACCEPT_CONTENT` (default values support `pickle`)
