@@ -1,7 +1,7 @@
 # env config
 python-decouple==3.0
 django-cache-url==1.0.0
-dj-database-url==0.3.0
+dj-database-url==0.4.0
 
 # cache with redis
 django-redis==4.3.0
