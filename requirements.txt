@@ -13,3 +13,5 @@ sentry[postgres]==8.3.2
 # ldap user store
 django-auth-ldap==1.2.7
 
+# Google SSO
+sentry_sso_google
