@@ -306,4 +306,4 @@ if SENTRY_USE_REMOTE_USER:
 ##############################
 # Google SSO
 GOOGLE_CLIENT_ID = config('SENTRY_GOOGLE_CLIENT_ID', default=None)
-GOOGLE_OAUTH2_CLIENT_SECRET = config('SENTRY_GOOGLE_CLIENT_SECRET', default=None)
+GOOGLE_CLIENT_SECRET = config('SENTRY_GOOGLE_CLIENT_SECRET', default=None)
