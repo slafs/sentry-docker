@@ -304,20 +304,6 @@ if SENTRY_USE_REMOTE_USER:
 ##############################
 # Plugins #
 ##############################
-def get_domains(domains):
-    """
-    Change comma separated domains into a list
-    :param domains:
-    :return:
-    """
-    domains_list = []
-    if str is not None:
-        domains_list = domains.split(',')
-    return(domains_list)
-
-
 # Google SSO
-INSTALLED_APPS +=  ('sentry_sso_google',)
-GOOGLE_OAUTH2_CLIENT_ID = config('SENTRY_GOOGLE_OAUTH2_CLIENT_ID', default=None)
-GOOGLE_OAUTH2_CLIENT_SECRET = config('SENTRY_GOOGLE_OAUTH2_CLIENT_SECRET', default=None)
-GOOGLE_WHITE_LISTED_DOMAINS = get_domains(config('SENTRY_GOOGLE_WHITE_LISTED_DOMAINS', default=None))
+GOOGLE_CLIENT_ID = config('SENTRY_GOOGLE_CLIENT_ID', default=None)
+GOOGLE_OAUTH2_CLIENT_SECRET = config('SENTRY_GOOGLE_CLIENT_SECRET', default=None)
