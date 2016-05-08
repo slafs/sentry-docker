@@ -1,6 +1,8 @@
 Sentry in Docker
 ==================
 
+Totally forked from [slafs/sentry-docker](https://github.com/slafs/sentry-docker)
+
 ## Warning about build tags
 
 Latest changes introduced some new build tags:
