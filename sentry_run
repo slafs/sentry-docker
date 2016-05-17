@@ -7,7 +7,7 @@ export SENTRY_CONF=$SENTRY_CONF_FILE
 SCRIPTS_DIR=${SENTRY_SCRIPTS_DIR:-/conf}
 
 # if starting the web worker then try to initialize DB and superuser
-if [ "$1" == "start" ] || [ "$1" == "prepare" ]; then
+if [ "$1" == "run" ] || [ "$1" == "run web" ] || [ "$1" == "prepare" ]; then
 
     # check DB health if "SENTRY_DOCKER_DO_DB_CHECK" is set
     if [ -n "$SENTRY_DOCKER_DO_DB_CHECK" ]; then
