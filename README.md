@@ -224,6 +224,7 @@ SENTRY_USE_REDIS_BUFFERS        |                                               
 SENTRY_REDIS_BUFFERS            | SENTRY_REDIS_OPTIONS['hosts']*                | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
 SENTRY_USE_REDIS_TSDB           |                                               | bool | False                                                 |
 SENTRY_REDIS_TSDBS              | SENTRY_TSDB_OPTIONS['hosts']*                 | list | ``<SENTRY_REDIS_HOST>:<SENTRY_REDIS_PORT>``           | comma separated list of redis hosts (``host1:port1,host2:port2,...``)
+MANDRILL_API_KEY                |                                               |      | None                                                  | API Key for Mandrill. If `$MANDRILL_API_KEY` is set and `$SENTRY_EMAIL_BACKEND` is not, the later will be preselected to `'djrill.mail.backends.djrill.DjrillBackend'`.
 SENTRY_EMAIL_BACKEND            | EMAIL_BACKEND                                 |      | django.core.mail.backends.console.EmailBackend        |
 SENTRY_EMAIL_HOST               | EMAIL_HOST                                    |      | localhost                                             |
 SENTRY_EMAIL_HOST_PASSWORD      | EMAIL_HOST_PASSWORD                           |      | ''                                                    |
@@ -236,6 +237,7 @@ SENTRY_ADMIN_USERNAME           |                                               
 SENTRY_ADMIN_PASSWORD           |                                               |      | admin                                                 | password for Sentry's superuser
 SENTRY_ADMIN_EMAIL              | SENTRY_ADMIN_EMAIL                            |      | root@localhost                                        | email address for Sentry's superuser and a setting as of Sentry 7.3
 SENTRY_DATA_DIR                 |                                               |      | ``/data``                                             | custom location for logs and sqlite database
+ALLOWED_HOSTS                   | ALLOWED_HOSTS                                 | list | [urlparse(SENTRY_URL_PREFIX).netloc]                  | "A list of strings representing the host/domain names that this Django site can serve" (https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts). If not defined, then the `SENTRY_URL_PREFIX` value will be parsed as a URL and the `netloc` component will be used.
 TWITTER_CONSUMER_KEY            | TWITTER_CONSUMER_KEY                          |      | ''                                                    |
 TWITTER_CONSUMER_SECRET         | TWITTER_CONSUMER_SECRET                       |      | ''                                                    |
 FACEBOOK_APP_ID                 | FACEBOOK_APP_ID                               |      | ''                                                    |

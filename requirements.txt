@@ -13,3 +13,5 @@ sentry[postgres]==8.0.6
 # ldap user store
 django-auth-ldap==1.2.7
 
+# Mandrillapp.com integration
+djrill==1.4.0
