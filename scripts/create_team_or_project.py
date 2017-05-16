@@ -50,6 +50,7 @@ def create_project(team_name, project_name):
     defaults = {'organization': team.organization}
     project, new = Project.objects.get_or_create(name=project_name, team=team,
                                                  defaults=defaults)
+    project.update_option('sentry:scrub_data', False)
 
     return project, new
 
