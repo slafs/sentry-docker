@@ -5,7 +5,8 @@ Sentry in Docker
 
 Latest changes introduced some new build tags:
 
-* **8.15.0**  - current stable version (8.15.0)
+* **8.16.0**  - current stable version (8.16.0)
+* **8.15.0**  - previous stable version (8.15.0)
 * **8.0**  - old stable version (8.0.X) - no longer updated
 * **7.7**  - old stable version (7.7.4) - no longer updated
 * **7.6**  - old stable version (7.6.2) - no longer updated
@@ -17,7 +18,7 @@ Latest changes introduced some new build tags:
 * **7.0**  - older stable version (7.0.2) - no longer updated
 * **6.4** - even older stable version (6.4.4) - no longer updated
 * **dev** - current master on github (infrequent builds)
-* **latest** (the default one used earlier) - is now the same as **8.15.0**
+* **latest** (the default one used earlier) - is now the same as **8.16.0**
 
 if you want to keep your builds same as before update your Dockerfiles and change
 ```FROM slafs/sentry``` to ```FROM slafs/sentry:6.4```.
