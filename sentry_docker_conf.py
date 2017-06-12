@@ -74,7 +74,8 @@ SENTRY_OPTIONS = {
 
 # You can enable queueing of jobs by turning off the always eager setting:
 CELERY_ALWAYS_EAGER = config('CELERY_ALWAYS_EAGER', default=True, cast=bool)
-DEFAULT_BROKER_URL = 'redis://{0}:{1}/1'.format(REDIS_HOST, REDIS_PORT)
+REDIS_BROKER_DATABASE=config('REDIS_BROKER_DATABASE', default='1')
+DEFAULT_BROKER_URL = 'redis://{0}:{1}/{2}'.format(REDIS_HOST, REDIS_PORT, REDIS_BROKER_DATABASE)
 
 BROKER_URL = config('SENTRY_BROKER_URL', default=DEFAULT_BROKER_URL)
 
