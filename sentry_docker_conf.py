@@ -125,6 +125,12 @@ if SENTRY_USE_REDIS_DIGESTS:
     SENTRY_DIGESTS = 'sentry.digests.backends.redis.RedisBackend'
     SENTRY_DIGESTS_OPTIONS = {'cluster': 'default'}
 
+
+SENTRY_USE_REDIS_QUOTAS = config('SENTRY_USE_REDIS_QUOTAS', default=False, cast=bool)
+if SENTRY_USE_REDIS_QUOTAS:
+    SENTRY_QUOTAS = 'sentry.quotas.redis.RedisQuota'
+    SENTRY_QUOTA_OPTIONS = {'cluster': 'default'}
+
 ################
 # Web Server ##
 ################
