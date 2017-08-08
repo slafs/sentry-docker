@@ -13,3 +13,5 @@ sentry[postgres]==8.15.0
 # ldap user store
 django-auth-ldap==1.2.7
 
+# plugins (i.e. Jira)
+sentry-plugins==8.19.0
