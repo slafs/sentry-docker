@@ -1,6 +1,13 @@
 Sentry in Docker
 ==================
 
+## Maintenance
+
+Since Sentry now [officially supports installation via Docker](https://github.com/getsentry/onpremise) -
+**this repository will no longer be updated**.
+
+More info on Sentry's Docker installation https://docs.sentry.io/server/installation/docker/.
+
 ## Warning about build tags
 
 Latest changes introduced some new build tags:
