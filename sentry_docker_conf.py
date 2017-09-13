@@ -33,22 +33,6 @@ SENTRY_CACHE = 'sentry.cache.django.DjangoCache'
 
 SENTRY_PUBLIC = config('SENTRY_PUBLIC', default=False, cast=bool)
 
-def nydus_config(from_env_var):
-    """
-    Generate a Nydus Redis configuration from an ENV variable of the form "server:port,server:port..."
-    Default to REDIS_HOST:REDIS_PORT if the ENV variable is not provided.
-    """
-    redis_servers_cast = lambda x: list(r.split(':') for r in x.split(','))
-    servers = config(from_env_var, default='{0}:{1}'.format(REDIS_HOST, REDIS_PORT), cast=redis_servers_cast)
-    _redis_hosts = {}
-
-    for r_index, r_host_pair in enumerate(servers):
-        _redis_hosts[r_index] = {'host': r_host_pair[0], 'port': int(r_host_pair[1])}
-
-    return {
-        'hosts': _redis_hosts
-    }
-
 
 ############################
 # General Sentry options ##
@@ -57,6 +41,27 @@ SENTRY_OPTIONS = {
     # You MUST configure the absolute URI root for Sentry:
     'system.url-prefix': config('SENTRY_URL_PREFIX'),
     'system.admin-email': config('SENTRY_ADMIN_EMAIL', default='root@localhost'),
+    # If this file ever becomes compromised, it's important to regenerate your SECRET_KEY
+    # Changing this value will result in all current sessions being invalidated
+    'system.secret-key': config('SECRET_KEY'),
+    # Mail Settings
+    # For more information check Django's documentation:
+    # https://docs.djangoproject.com/en/1.3/topics/email/?from=olddocs#e-mail-backends
+    'mail.backend': config('SENTRY_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend'),
+    'mail.host': config('SENTRY_EMAIL_HOST', default='localhost'),
+    'mail.port': config('SENTRY_EMAIL_PORT', default=25, cast=int),
+    'mail.password': config('SENTRY_EMAIL_HOST_PASSWORD', default=''),
+    'mail.username': config('SENTRY_EMAIL_HOST_USER', default=''),
+    'mail.use-tls': config('SENTRY_EMAIL_USE_TLS', default=False, cast=bool),
+    # The email address to send on behalf of
+    'mail.from': config('SENTRY_SERVER_EMAIL', default='root@localhost'),
+    'redis.clusters': {
+        'default': {
+            'hosts': {
+                0: {'host': REDIS_HOST, 'port': REDIS_PORT},
+            }
+        }
+    }
 }
 
 ###########
@@ -69,7 +74,8 @@ SENTRY_OPTIONS = {
 
 # You can enable queueing of jobs by turning off the always eager setting:
 CELERY_ALWAYS_EAGER = config('CELERY_ALWAYS_EAGER', default=True, cast=bool)
-DEFAULT_BROKER_URL = 'redis://{0}:{1}/1'.format(REDIS_HOST, REDIS_PORT)
+REDIS_BROKER_DATABASE=config('REDIS_BROKER_DATABASE', default='1')
+DEFAULT_BROKER_URL = 'redis://{0}:{1}/{2}'.format(REDIS_HOST, REDIS_PORT, REDIS_BROKER_DATABASE)
 
 BROKER_URL = config('SENTRY_BROKER_URL', default=DEFAULT_BROKER_URL)
 
@@ -94,7 +100,6 @@ SENTRY_USE_REDIS_BUFFERS = config('SENTRY_USE_REDIS_BUFFERS', default=False, cas
 
 if SENTRY_USE_REDIS_BUFFERS:
     SENTRY_BUFFER = 'sentry.buffer.redis.RedisBuffer'
-    SENTRY_REDIS_OPTIONS = nydus_config('SENTRY_REDIS_BUFFERS')
     SENTRY_CACHE = 'sentry.cache.redis.RedisCache'
 
 #######################
@@ -108,7 +113,23 @@ SENTRY_USE_REDIS_TSDB = config('SENTRY_USE_REDIS_TSDB', default=False, cast=bool
 
 if SENTRY_USE_REDIS_TSDB:
     SENTRY_TSDB = 'sentry.tsdb.redis.RedisTSDB'
-    SENTRY_TSDB_OPTIONS = nydus_config('SENTRY_REDIS_TSDBS')
+    SENTRY_TSDB_OPTIONS = {'cluster': 'default'}
+
+
+############
+# Digests ##
+############
+
+SENTRY_USE_REDIS_DIGESTS = config('SENTRY_USE_REDIS_DIGESTS', default=False, cast=bool)
+if SENTRY_USE_REDIS_DIGESTS:
+    SENTRY_DIGESTS = 'sentry.digests.backends.redis.RedisBackend'
+    SENTRY_DIGESTS_OPTIONS = {'cluster': 'default'}
+
+
+SENTRY_USE_REDIS_QUOTAS = config('SENTRY_USE_REDIS_QUOTAS', default=False, cast=bool)
+if SENTRY_USE_REDIS_QUOTAS:
+    SENTRY_QUOTAS = 'sentry.quotas.redis.RedisQuota'
+    SENTRY_QUOTA_OPTIONS = {'cluster': 'default'}
 
 ################
 # Web Server ##
@@ -132,33 +153,12 @@ SENTRY_WEB_OPTIONS = {
 # allows JavaScript clients to submit cross-domain error reports. Useful for local development
 SENTRY_ALLOW_ORIGIN = config('SENTRY_ALLOW_ORIGIN', default=None)
 
-#################
-# Mail Server ##
-#################
-
-# For more information check Django's documentation:
-#  https://docs.djangoproject.com/en/1.3/topics/email/?from=olddocs#e-mail-backends
-
-EMAIL_BACKEND = config('SENTRY_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-
-EMAIL_HOST = config('SENTRY_EMAIL_HOST', default='localhost')
-EMAIL_HOST_PASSWORD = config('SENTRY_EMAIL_HOST_PASSWORD', default='')
-EMAIL_HOST_USER = config('SENTRY_EMAIL_HOST_USER', default='')
-EMAIL_PORT = config('SENTRY_EMAIL_PORT', default=25, cast=int)
-EMAIL_USE_TLS = config('SENTRY_EMAIL_USE_TLS', default=False, cast=bool)
-
-# The email address to send on behalf of
-SERVER_EMAIL = config('SENTRY_SERVER_EMAIL', default='root@localhost')
 
 ###########
 # etc. ##
 ###########
 
 SENTRY_FEATURES['auth:register'] = config('SENTRY_ALLOW_REGISTRATION', default=False, cast=bool)
-
-# If this file ever becomes compromised, it's important to regenerate your SECRET_KEY
-# Changing this value will result in all current sessions being invalidated
-SECRET_KEY = config('SECRET_KEY')
 
 # http://twitter.com/apps/new
 # It's important that input a callback URL, even if its useless. We have no idea why, consult Twitter.

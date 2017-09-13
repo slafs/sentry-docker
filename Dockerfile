@@ -21,7 +21,7 @@ ADD sentry_run /usr/local/bin/
 
 ENTRYPOINT ["/usr/local/bin/sentry_run"]
 
-CMD ["start"]
+CMD ["run", "web"]
 
 ADD scripts/create_team_or_project.py /conf/
 ADD scripts/check_db_isalive.py /conf/
