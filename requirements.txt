@@ -8,7 +8,7 @@ django-redis==4.3.0
 hiredis==0.2.0
 
 # sentry
-sentry[postgres]==8.0.6
+sentry[postgres]==8.2.3
 
 # ldap user store
 django-auth-ldap==1.2.7

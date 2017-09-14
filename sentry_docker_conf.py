@@ -122,11 +122,11 @@ USE_X_FORWARDED_HOST = config('SENTRY_USE_X_FORWARDED_HOST', default=False, cast
 SENTRY_WEB_HOST = config('SENTRY_WEB_HOST', default='0.0.0.0')
 SENTRY_WEB_PORT = config('SENTRY_WEB_PORT', default=9000, cast=int)
 SENTRY_WEB_OPTIONS = {
-    'workers': config('SENTRY_WORKERS', default=3, cast=int),  # the number of gunicorn workers
+    'workers': config('SENTRY_WORKERS', default=3, cast=int),  # the number of sentry web workers
     'limit_request_line': 0,  # required for raven-js
     'secure_scheme_headers': {'X-FORWARDED-PROTO': 'https'},
-    'errorlog' : os.path.join(DATA_DIR, 'gunicorn_error.log'),
-    'accesslog' : os.path.join(DATA_DIR, 'gunicorn_access.log'),
+    'errorlog' : os.path.join(DATA_DIR, 'sentry_web_error.log'),
+    'accesslog' : os.path.join(DATA_DIR, 'sentry_web_access.log'),
 }
 
 # allows JavaScript clients to submit cross-domain error reports. Useful for local development
